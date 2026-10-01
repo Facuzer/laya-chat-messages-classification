@@ -1,0 +1,36 @@
+[project]
+name = "message-flagger"
+version = "0.1.0"
+description = "Chat mínimo que usa Laya para flaggear insultos y clasificar el sentimiento de cada mensaje"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "fastapi>=0.115",
+    # Pinned: trainer/finetune.py uses Laya's private encoding and calibration APIs.
+    "laya==0.3.22",
+    "torch>=2.14",
+    "uvicorn>=0.30",
+]
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.13.1",
+    "pytest>=8",
+]
+
+[tool.uv]
+package = false
+
+# PyPI only ships CPU builds of torch for Windows, so torch comes from the PyTorch CUDA index.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu130", marker = "sys_platform == 'win32' or sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-m 'not slow'"
+markers = ["slow: loads the real Laya checkpoint; run with `pytest -m slow`"]

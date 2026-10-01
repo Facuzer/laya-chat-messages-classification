@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Virtual environment (recreate with `uv sync`)
+.venv/
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Local data: chat messages and labeled training examples
+data/
+
+# Fine-tuned checkpoints (~1.3 GB each) and the active-checkpoint pointer
+models/
+
+# Secrets
+.env
+.env.*
+
+# Browser automation output
+.playwright-mcp/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
