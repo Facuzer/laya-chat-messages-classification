@@ -64,4 +64,6 @@ def test_latency_section_only_when_measured():
     assert "## Latencia" not in render(board())
     latency = [{"contestant": "laya", "device": "cpu", "lang": "es", "n": 200, "p50_ms": 120.4, "p95_ms": 300.2,
                 "throughput_per_s": 15.2, "batch_size": 32}]
-    assert "| laya | cpu | es | 120 | 300 | 15 |" in render(board(latency=latency))
+    md = render(board(latency=latency))
+    assert "| modelo | dispositivo | idioma | lote | p50 ms | p95 ms | mensajes/s en lotes |" in md
+    assert "| laya | cpu | es | 32 | 120 | 300 | 15 |" in md

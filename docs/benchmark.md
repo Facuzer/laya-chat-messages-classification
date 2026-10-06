@@ -58,6 +58,8 @@ uv run python scripts/bench.py run --include-unreviewed    # vista PRELIMINAR co
 uv run python scripts/bench.py latency --device cpu        # latencia en CPU (y --device cuda)
 ```
 
+`--batch-size` (8 por defecto) controla cuántos mensajes se procesan juntos; en una GPU de 4 GB, 8 es más rápido que 32. Si la GPU se queda sin memoria, bajalo a 4.
+
 Todos los modelos son de código abierto (Apache-2.0) y corren en nuestras máquinas: ningún mensaje sale a una API externa. Un modelo nuevo entra al benchmark solo si cumple lo mismo; el test `test_every_contestant_is_open_source` lo controla.
 
 Las predicciones quedan guardadas en `bench_out/predictions/`. Volver a correr solo evalúa lo nuevo: si revisaste o corregiste filas de la suite, solo se vuelven a evaluar esas. Con `--bootstrap 200` el cálculo de intervalos es más rápido.

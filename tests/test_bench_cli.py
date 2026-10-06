@@ -66,6 +66,24 @@ def test_internal_errors_keep_their_traceback(tmp_path):
         run_main("run", "--contestants", "fake", "--out", str(tmp_path), factories={"fake": Broken})
 
 
+def test_run_and_latency_send_batches_of_eight_by_default(tmp_path):
+    sizes = []
+
+    class Recording(Fake):
+        def predict(self, texts, lang):
+            sizes.append(len(texts))
+            return super().predict(texts, lang)
+
+    assert run_main("run", "--contestants", "fake", "--out", str(tmp_path), "--bootstrap", "5",
+                    factories={"fake": Recording}) == 0
+    assert max(sizes) == 8
+
+    assert run_main("latency", "--contestants", "fake", "--n", "20", "--out", str(tmp_path),
+                    factories={"fake": Recording}) == 0
+    [entry] = json.loads((tmp_path / "latency.json").read_text(encoding="utf-8"))
+    assert entry["batch_size"] == 8
+
+
 def test_latency_keeps_one_entry_per_contestant_device_and_language(tmp_path):
     args = ("latency", "--contestants", "fake", "--device", "cpu", "--lang", "es", "--n", "5", "--out", str(tmp_path))
 

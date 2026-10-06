@@ -111,8 +111,8 @@ def render(board: dict) -> str:
 
     if board.get("latency"):
         lines += ["## Latencia", ""]
-        lines += _table(["modelo", "dispositivo", "idioma", "p50 ms", "p95 ms", "mensajes/s en lotes"], [
-            [r["contestant"], r["device"], r["lang"], f"{r['p50_ms']:.0f}", f"{r['p95_ms']:.0f}",
+        lines += _table(["modelo", "dispositivo", "idioma", "lote", "p50 ms", "p95 ms", "mensajes/s en lotes"], [
+            [r["contestant"], r["device"], r["lang"], str(r["batch_size"]), f"{r['p50_ms']:.0f}", f"{r['p95_ms']:.0f}",
              "n/a" if r["throughput_per_s"] is None else f"{r['throughput_per_s']:.0f}"]
             for r in board["latency"]
         ]) + [""]

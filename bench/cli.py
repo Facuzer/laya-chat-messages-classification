@@ -125,7 +125,7 @@ def main(argv=None, sources=None, factories=None) -> int:
     p.add_argument("--include-unreviewed", action="store_true", help="incluir filas sin revisar (scoreboard PRELIMINAR)")
     p.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     p.add_argument("--bootstrap", type=int, default=1000, help="remuestreos para los intervalos de confianza")
-    p.add_argument("--batch-size", type=int, default=32, help="mensajes por lote; bajalo si la GPU se queda sin memoria")
+    p.add_argument("--batch-size", type=int, default=8, help="mensajes por lote; 8 anda bien en una GPU de 4 GB")
     p.add_argument("--out", default=str(DEFAULT_OUT))
     p.set_defaults(handler=cmd_run)
 
@@ -134,7 +134,7 @@ def main(argv=None, sources=None, factories=None) -> int:
     p.add_argument("--device", choices=["cpu", "cuda"], default="cpu")
     p.add_argument("--lang", choices=list(LANGS), default="es")
     p.add_argument("--n", type=int, default=200, help="cantidad de mensajes")
-    p.add_argument("--batch-size", type=int, default=32)
+    p.add_argument("--batch-size", type=int, default=8, help="mensajes por lote; 8 anda bien en una GPU de 4 GB")
     p.add_argument("--out", default=str(DEFAULT_OUT))
     p.set_defaults(handler=cmd_latency)
 
