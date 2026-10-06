@@ -5,6 +5,7 @@ import pytest
 from bench.cli import main
 from bench.latency import measure, percentile
 from bench.sources import Source
+from bench.sources.suite import write_suite
 from bench.taxonomy import Example
 
 
@@ -140,3 +141,15 @@ def test_measure_times_single_messages_and_batches_after_a_warm_up():
     assert result["p50_ms"] == pytest.approx(10.0) and result["p95_ms"] == pytest.approx(10.0)
     assert result["throughput_per_s"] == pytest.approx(10 / 0.01)
     assert (result["n"], result["batch_size"]) == (10, 4)
+
+
+def test_agreement_reports_missing_and_non_utf8_suites(tmp_path, capsys):
+    other = tmp_path / "other.csv"
+    write_suite(other, [])
+    ansi = tmp_path / "ansi.csv"
+    ansi.write_bytes("id;text\nes-0001;vení\n".encode("cp1252"))
+
+    assert main(["agreement", str(tmp_path / "missing.csv"), str(other)]) == 1
+    assert "missing.csv: no existe" in capsys.readouterr().out
+    assert main(["agreement", str(ansi), str(other)]) == 1
+    assert "UTF-8" in capsys.readouterr().out

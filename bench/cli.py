@@ -14,7 +14,7 @@ from bench.report import render
 from bench.runner import run
 from bench.scoreboard import build_scoreboard
 from bench.sources import DEFAULT_MAX_PER_SOURCE, SOURCES, load_sources, stable_hash
-from bench.sources.suite import SuiteError, agreement, parse_suite
+from bench.sources.suite import SuiteError, agreement, parse_suite, read_suite_text
 from bench.taxonomy import LANGS, SCORED, gold
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -98,7 +98,7 @@ def cmd_latency(args, sources, factories) -> int:
 
 
 def cmd_agreement(args, sources, factories) -> int:
-    a, b = ([e for e, _ in parse_suite(Path(p).read_text(encoding="utf-8-sig"), "suite")] for p in (args.a, args.b))
+    a, b = ([e for e, _ in parse_suite(read_suite_text(p), "suite")] for p in (args.a, args.b))
     print(f"{'categoría':<20} {'filas':>6} {'kappa':>6}")
     for category, result in agreement(a, b).items():
         kappa = "n/a" if result["kappa"] is None else f"{result['kappa']:.2f}"

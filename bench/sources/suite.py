@@ -72,12 +72,18 @@ def parse_suite(text: str, source: str) -> list[tuple[Example, bool]]:
     return parsed
 
 
-def load_suite(path: Path, source: str, include_unreviewed: bool = False) -> list[Example]:
+def read_suite_text(path: Path) -> str:
+    """The text of a suite CSV, or a SuiteError a reviewer can act on."""
     try:
-        text = Path(path).read_text(encoding="utf-8-sig")
+        return Path(path).read_text(encoding="utf-8-sig")
+    except FileNotFoundError:
+        raise SuiteError(f"{path}: no existe") from None
     except UnicodeDecodeError:
         raise SuiteError(f"{path}: el archivo no está en UTF-8. En Excel usá «Guardar como» → «CSV UTF-8 (delimitado por comas)».") from None
-    rows = parse_suite(text, source)
+
+
+def load_suite(path: Path, source: str, include_unreviewed: bool = False) -> list[Example]:
+    rows = parse_suite(read_suite_text(path), source)
     return [example for example, reviewed in rows if reviewed or include_unreviewed]
 
 
