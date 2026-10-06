@@ -69,15 +69,19 @@ TAXONOMY_QUESTIONS = {
 }
 POSITIVE = {"insult": "insult", "threat": "threat", "identity_hate": "hate", "sexual_harassment": "harassment", "profanity": "profanity"}
 
+CHECKPOINT_NOTE = (
+    "Laya avisa que un checkpoint trae temperaturas inválidas para preguntas de 11+ opciones; no afecta a este "
+    "benchmark (2–3 opciones)."
+)
 TAXONOMY_NOTES = (
     "Laya sin ajustar (zero-shot) con seis preguntas redactadas para este benchmark y sin pulir: el "
     "resultado depende tanto de la redacción como del modelo. El inglés que Laya identifica va al "
     "checkpoint inglés (ModernBERT-large) y el resto al multilingüe (mmBERT-base). Hace una fila de "
-    "encoder por pregunta: seis por mensaje."
+    f"encoder por pregunta: seis por mensaje. {CHECKPOINT_NOTE}"
 )
 APP_NOTES = (
     "La pregunta `insult` que usa hoy la app (insultos, slurs y amenazas en una sola pregunta) como flag. "
-    "Es la línea de base: lo que ya tenemos."
+    f"Es la línea de base: lo que ya tenemos. {CHECKPOINT_NOTE}"
 )
 
 

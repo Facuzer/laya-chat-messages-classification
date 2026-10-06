@@ -94,6 +94,29 @@ def test_unload_releases_the_model_and_the_next_prediction_reloads_it():
     assert detoxify._model is None
 
 
+def test_hf_contestant_loads_the_pinned_revision_as_safetensors_without_remote_code(monkeypatch):
+    import transformers
+
+    calls = {}
+
+    def recorder(kind):
+        def from_pretrained(*args, **kwargs):
+            calls[kind] = (args, kwargs)
+            return kind
+        return from_pretrained
+
+    monkeypatch.setattr(transformers.AutoTokenizer, "from_pretrained", recorder("tokenizer"))
+    monkeypatch.setattr(transformers.AutoModelForSequenceClassification, "from_pretrained", recorder("model"))
+
+    assert HFContestant("h", "org/model", "b" * 40, DETOXIFY_STYLE, "", "MIT")._from_hub() == ("tokenizer", "model")
+
+    (tokenizer_args, tokenizer_kwargs), (model_args, model_kwargs) = calls["tokenizer"], calls["model"]
+    assert tokenizer_args == model_args == ("org/model",)
+    assert tokenizer_kwargs["revision"] == model_kwargs["revision"] == "b" * 40
+    assert model_kwargs["use_safetensors"] is True
+    assert tokenizer_kwargs.get("trust_remote_code") is not True and model_kwargs.get("trust_remote_code") is not True
+
+
 def test_horizon_is_pinned_to_a_full_revision_sha():
     assert re.fullmatch(r"[0-9a-f]{40}", HORIZON_REVISION)
 

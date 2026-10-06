@@ -24,7 +24,8 @@ class DetoxifyContestant:
     notes = (
         "XLM-R entrenado con Jigsaw 2020. Fuera de `toxicity`, sus categorías se aprendieron de etiquetas en "
         "inglés traducidas, así que en español y portugués son débiles. `sexual_explicit` detecta contenido "
-        "sexual, no acoso."
+        "sexual, no acoso. El checkpoint es un pickle de una release de GitHub (se carga con weights_only=False) "
+        "y el tokenizer de xlm-roberta-base se baja sin revisión fija."
     )
 
     def __init__(self, device: str | None = None, model=None):
