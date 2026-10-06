@@ -22,7 +22,7 @@
 {"functionality": "gaming_insult", "text": "JAJAJA el dealer piensa más que vos, bobo", "insult": "1", "target": "player"}
 {"functionality": "gaming_insult", "text": "te sentás con 500 y te creés pro, ridículo", "insult": "1", "target": "player"}
 {"functionality": "gaming_insult", "text": "dejá el póker que no es lo tuyo, nabo", "insult": "1", "target": "player"}
-{"functionality": "gaming_insult", "text": "Lucas es un regalador, todos le sacamos fichas", "insult": "1", "target": "player", "notes": "Burla leve en tercera persona: revisar si alcanza para insult."}
+{"functionality": "gaming_insult", "text": "sos un cajero automático, inútil, regalás todo", "insult": "1", "target": "player"}
 {"functionality": "bets_amounts", "text": "voy all in con 3.5k", "insult": "0", "threat": "0", "identity_hate": "0", "sexual_harassment": "0", "profanity": "0", "target": "none"}
 {"functionality": "bets_amounts", "text": "x3 a la docena, vamos", "insult": "0", "threat": "0", "identity_hate": "0", "sexual_harassment": "0", "profanity": "0", "target": "none"}
 {"functionality": "bets_amounts", "text": "te debo 2 lucas, mañana te las paso", "insult": "0", "threat": "0", "identity_hate": "0", "sexual_harassment": "0", "profanity": "0", "target": "none"}
@@ -53,21 +53,21 @@
 {"functionality": "bets_amounts", "text": "te maté en el river con color jaja", "insult": "0", "threat": "0", "identity_hate": "0", "sexual_harassment": "0", "profanity": "0", "target": "none", "notes": "'Te maté' es 'te gané la mano'; no es una amenaza."}
 {"functionality": "bets_amounts", "text": "8 tiradas gratis y 0 de premio", "insult": "0", "threat": "0", "identity_hate": "0", "sexual_harassment": "0", "profanity": "0", "target": "none"}
 {"functionality": "bets_amounts", "text": "cuánto paga el pleno? 35 a 1?", "insult": "0", "threat": "0", "identity_hate": "0", "sexual_harassment": "0", "profanity": "0", "target": "none"}
-{"functionality": "obfuscated_insult", "text": "p.e.l.o.t.u.d.o", "insult": "1", "target": "player"}
+{"functionality": "obfuscated_insult", "text": "p_e_l_o_t_a_s, te comiste el bluff", "insult": "1", "target": "player", "notes": "'Pelotas' = pelotudo."}
 {"functionality": "obfuscated_insult", "text": "sos un f0rr0 de cuarta", "insult": "1", "target": "player"}
 {"functionality": "obfuscated_insult", "text": "g1l, otra vez regalaste el pozo", "insult": "1", "target": "player"}
 {"functionality": "obfuscated_insult", "text": "b0lud0 cómo vas a pagar con 7 alto", "insult": "1", "target": "player", "notes": "'Boludo' puede ser amistoso; acá ridiculiza la jugada. Revisar si es insult."}
-{"functionality": "obfuscated_insult", "text": "m4nc0 d3 m13rd4", "insult": "1", "target": "player"}
+{"functionality": "obfuscated_insult", "text": "re m4nc0, foldeaste las nuts", "insult": "1", "target": "player"}
 {"functionality": "obfuscated_insult", "text": "h.d.p. me robaste el pozo", "insult": "1", "target": "player", "notes": "h.d.p. = hijo de puta."}
 {"functionality": "obfuscated_insult", "text": "c.o.n.c.h.u.d.o, cuánto orto tenés", "insult": "1", "target": "player", "notes": "'Conchudo' también es 'suertudo': con 'orto' puede ser envidia más que insulto. Caso borde."}
 {"functionality": "obfuscated_insult", "text": "i.m.b.e.c.i.l", "insult": "1", "target": "player"}
 {"functionality": "obfuscated_insult", "text": "s0s un 1nút1l", "insult": "1", "target": "player"}
-{"functionality": "obfuscated_insult", "text": "pelotuuuuudo", "insult": "1", "target": "player"}
+{"functionality": "obfuscated_insult", "text": "pelotuuuuudo, cómo no subís con ases", "insult": "1", "target": "player"}
 {"functionality": "obfuscated_insult", "text": "manquiiiito, volvé a la ruleta", "insult": "1", "target": "player"}
 {"functionality": "obfuscated_insult", "text": "flor de pajer0 sos", "insult": "1", "target": "player"}
 {"functionality": "obfuscated_insult", "text": "tar@do, ni sabés contar fichas", "insult": "1", "target": "player"}
-{"functionality": "obfuscated_insult", "text": "1d10t4", "insult": "1", "target": "player"}
-{"functionality": "obfuscated_insult", "text": "f o r r o", "insult": "1", "target": "player"}
+{"functionality": "obfuscated_insult", "text": "1d10t4, ni sabés qué le gana a qué", "insult": "1", "target": "player"}
+{"functionality": "obfuscated_insult", "text": "f o r r o y encima lento", "insult": "1", "target": "player"}
 {"functionality": "obfuscated_insult", "text": "q pltd, mirá lo que pagaste", "insult": "1", "target": "player", "notes": "pltd = pelotudo sin vocales."}
 {"functionality": "obfuscated_insult", "text": "la c0ncha de tu hermana", "insult": "1", "target": "player"}
 {"functionality": "obfuscated_insult", "text": "chupame la p1ja, manco", "insult": "1", "target": "player", "notes": "Insulto vulgar con término sexual: no es un avance, revisar sexual_harassment."}
@@ -98,13 +98,13 @@
 {"functionality": "identity_hate_casino", "text": "jugás como un down, das vergüenza", "identity_hate": "1", "target": "player", "notes": "Discapacidad usada como insulto general: revisar si es identity_hate o insult."}
 {"functionality": "identity_hate_casino", "text": "autista, ¿no ves que te están robando?", "identity_hate": "1", "target": "player", "notes": "Discapacidad usada como insulto general: revisar si es identity_hate o insult."}
 {"functionality": "identity_hate_casino", "text": "musulmán, ¿vas a hacer volar la mesa?", "identity_hate": "1", "target": "player"}
-{"functionality": "identity_hate_casino", "text": "maricón, pagá el call si tenés huevos", "identity_hate": "1", "target": "player"}
+{"functionality": "identity_hate_casino", "text": "maricón, pagá el call si tenés huevos", "identity_hate": "1", "target": "player", "notes": "'Maricón' usado como 'cobarde': revisar si es identity_hate o insult."}
 {"functionality": "identity_hate_casino", "text": "india, volvé a tu toldería", "identity_hate": "1", "target": "player"}
 {"functionality": "identity_hate_casino", "text": "las mujeres no deberían jugar con plata real", "identity_hate": "1", "target": "group"}
 {"functionality": "identity_hate_casino", "text": "que se vuelvan a su país todos los paraguas del chat", "identity_hate": "1", "target": "group"}
 {"functionality": "identity_hate_casino", "text": "gay tenías que ser, foldeás todo", "identity_hate": "1", "target": "player"}
-{"functionality": "obfuscated_slur", "text": "put0 de m1erd4, salí de la mesa", "identity_hate": "1", "target": "player"}
-{"functionality": "obfuscated_slur", "text": "t r o l o", "identity_hate": "1", "target": "player"}
+{"functionality": "obfuscated_slur", "text": "put0 c4g0n, salí de la mesa", "identity_hate": "1", "target": "player", "notes": "'Puto' también se usa como insulto genérico: revisar si es identity_hate o insult."}
+{"functionality": "obfuscated_slur", "text": "t r o l o, nadie te invitó", "identity_hate": "1", "target": "player"}
 {"functionality": "obfuscated_slur", "text": "grone sucio, nadie te quiere acá", "identity_hate": "1", "target": "player", "notes": "'Grone' es 'negro' al vesre."}
 {"functionality": "obfuscated_slur", "text": "m4r1c0n", "identity_hate": "1", "target": "player"}
 {"functionality": "obfuscated_slur", "text": "jud10s de m13rd4, se quedan con todo", "identity_hate": "1", "target": "group"}
@@ -113,9 +113,9 @@
 {"functionality": "obfuscated_slur", "text": "m0ng0, ni contar sabés", "identity_hate": "1", "target": "player", "notes": "'Mongo' es 'mogólico' abreviado: revisar si es identity_hate o insult."}
 {"functionality": "obfuscated_slur", "text": "un tr4v4 jugando, lo que faltaba", "identity_hate": "1", "target": "player"}
 {"functionality": "obfuscated_slur", "text": "m0n0, volvé al zoológico", "identity_hate": "1", "target": "player"}
-{"functionality": "obfuscated_slur", "text": "trolaaaaazo", "identity_hate": "1", "target": "player"}
+{"functionality": "obfuscated_slur", "text": "trolaaaaazo, bancate perder", "identity_hate": "1", "target": "player"}
 {"functionality": "obfuscated_slur", "text": "los p*tos de la mesa 2 que se vayan", "identity_hate": "1", "target": "group"}
-{"functionality": "obfuscated_slur", "text": "ch1n0 tr4mp0s0", "identity_hate": "1", "target": "player"}
+{"functionality": "obfuscated_slur", "text": "ch1n0 tr4mp0s0", "identity_hate": "1", "target": "player", "notes": "'Chino' también es apodo cariñoso; acá va con 'tramposo': revisar si ataca el origen."}
 {"functionality": "obfuscated_slur", "text": "4ut1st4, ni las cartas ves", "identity_hate": "1", "target": "player", "notes": "Discapacidad usada como insulto: revisar si es identity_hate o insult."}
 {"functionality": "obfuscated_slur", "text": "t0rt1ll3r4", "identity_hate": "1", "target": "player"}
 {"functionality": "affectionate_identity_term", "text": "negrita, te guardo lugar en la mesa 2", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none"}
@@ -129,10 +129,10 @@
 {"functionality": "affectionate_identity_term", "text": "enano, me debés la revancha", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none"}
 {"functionality": "affectionate_identity_term", "text": "mi negro, nos vemos en la mesa de las 10", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none"}
 {"functionality": "sexual_harassment", "text": "mamita, con esa foto de perfil te pago todas las ciegas", "sexual_harassment": "1", "target": "player"}
-{"functionality": "sexual_harassment", "text": "te regalo 5k en fichas si prendés la cámara", "sexual_harassment": "1", "target": "player"}
+{"functionality": "sexual_harassment", "text": "te regalo 5k en fichas si prendés la cámara", "sexual_harassment": "1", "target": "player", "notes": "Intención sexual implícita (fichas a cambio de prender la cámara): caso borde."}
 {"functionality": "sexual_harassment", "text": "jugamos strip póker vos y yo? 😏", "sexual_harassment": "1", "target": "player"}
 {"functionality": "sexual_harassment", "text": "mostrame las tetas y foldeo", "sexual_harassment": "1", "target": "player"}
-{"functionality": "sexual_harassment", "text": "qué hacés sola en la mesa a esta hora, bebé?", "sexual_harassment": "1", "target": "player"}
+{"functionality": "sexual_harassment", "text": "qué hacés sola en la mesa a esta hora, bebé?", "sexual_harassment": "1", "target": "player", "notes": "Avance implícito, sin pedido sexual explícito: caso borde."}
 {"functionality": "sexual_harassment", "text": "pasame tu insta que te quiero conocer mejor 😘", "sexual_harassment": "1", "target": "player", "notes": "Avance no pedido sin contenido explícito: caso borde."}
 {"functionality": "sexual_harassment", "text": "con ese nombre seguro estás re buena", "sexual_harassment": "1", "target": "player"}
 {"functionality": "sexual_harassment", "text": "si ganás te invito a mi depto, si perdés también", "sexual_harassment": "1", "target": "player"}
@@ -144,7 +144,7 @@
 {"functionality": "sexual_harassment", "text": "sentate en mi falda que te enseño a jugar", "sexual_harassment": "1", "target": "player"}
 {"functionality": "sexual_harassment", "text": "cuánto cobrás la hora, bombón?", "sexual_harassment": "1", "target": "player"}
 {"functionality": "sexual_harassment", "text": "dejá el póker y vení a jugar conmigo a otra cosa 😈", "sexual_harassment": "1", "target": "player"}
-{"functionality": "sexual_harassment", "text": "sos mujer? pasá foto o no te creo", "sexual_harassment": "1", "target": "player"}
+{"functionality": "sexual_harassment", "text": "sos mujer? pasá foto o no te creo", "sexual_harassment": "1", "target": "player", "notes": "Pide foto por ser mujer; la intención sexual es implícita: caso borde."}
 {"functionality": "sexual_harassment", "text": "te mando una foto de mi pija?", "sexual_harassment": "1", "target": "player"}
 {"functionality": "sexual_harassment", "text": "seguro la chupás mejor de lo que jugás", "sexual_harassment": "1", "target": "player", "notes": "También insulta: revisar insult."}
 {"functionality": "sexual_harassment", "text": "papito, con esas manos imaginate en otro lado 😏", "sexual_harassment": "1", "target": "player"}
@@ -172,7 +172,7 @@
 {"functionality": "quoting_reporting_casino", "text": "al dealer le dijeron 'mono', banéenlo ya", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none"}
 {"functionality": "quoting_reporting_casino", "text": "le pedí que no me diga 'mamita', me incomoda", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none"}
 {"functionality": "quoting_reporting_casino", "text": "¿por qué me silenciaron si solo dije 'la puta madre'?", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none", "notes": "Cita una puteada propia: profanity queda a criterio."}
-{"functionality": "quoting_reporting_casino", "text": "copio lo que me mandó: 'sé dónde vivís'. ¿es normal?", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none"}
+{"functionality": "quoting_reporting_casino", "text": "me mandó 'ya sé en qué barrio vivís', ¿lo reporto?", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none"}
 {"functionality": "self_deprecation", "text": "qué pelotudo que soy, foldeé el full", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none"}
 {"functionality": "self_deprecation", "text": "soy el peor jugador de esta mesa jajaja", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none"}
 {"functionality": "self_deprecation", "text": "me fundí otra vez, soy un desastre", "insult": "0", "threat": "0", "identity_hate": "0", "target": "none"}
@@ -194,7 +194,7 @@
 {"functionality": "profanity_at_game", "text": "la puta que me parió, se me cortó internet en la final", "insult": "0", "threat": "0", "identity_hate": "0", "profanity": "1", "target": "none"}
 {"functionality": "profanity_at_game", "text": "set contra set y pierdo, carajo", "insult": "0", "threat": "0", "identity_hate": "0", "profanity": "1", "target": "none"}
 {"functionality": "profanity_at_game", "text": "qué cagada, me olvidé de retirar", "insult": "0", "threat": "0", "identity_hate": "0", "profanity": "1", "target": "none"}
-{"functionality": "profanity_at_game", "text": "LPM otro river así", "insult": "0", "threat": "0", "identity_hate": "0", "profanity": "1", "target": "none", "notes": "LPM = la puta madre."}
+{"functionality": "profanity_at_game", "text": "LPM, siempre le cae la carta justa en el turn", "insult": "0", "threat": "0", "identity_hate": "0", "profanity": "1", "target": "none", "notes": "LPM = la puta madre."}
 {"functionality": "profanity_at_game", "text": "ruleta del orto, ocho rojos seguidos", "insult": "0", "threat": "0", "identity_hate": "0", "profanity": "1", "target": "none"}
 {"functionality": "profanity_at_game", "text": "a la mierda, me retiro por hoy", "insult": "0", "threat": "0", "identity_hate": "0", "profanity": "1", "target": "none"}
 {"functionality": "profanity_at_game", "text": "la put4 m4dr3 qué suerte tengo", "insult": "0", "threat": "0", "identity_hate": "0", "profanity": "1", "target": "none"}
@@ -227,4 +227,4 @@
 {"functionality": "counter_speech", "text": "la religión de cada uno no tiene nada que ver con el póker", "identity_hate": "0", "target": "none"}
 {"functionality": "counter_speech", "text": "dejá de decirle 'trava', se llama Sofi y juega mejor que vos", "identity_hate": "0", "target": "none", "notes": "Cierra con una chicana leve."}
 {"functionality": "counter_speech", "text": "si vas a hablar así de los judíos, andate del chat", "identity_hate": "0", "target": "none"}
-{"functionality": "counter_speech", "text": "racista de mierda, andate", "identity_hate": "0", "target": "none", "notes": "Contradiscurso que insulta al otro jugador: revisar insult."}
+{"functionality": "counter_speech", "text": "llamar 'macaco' a un brasileño es racismo, borralo", "identity_hate": "0", "target": "none"}

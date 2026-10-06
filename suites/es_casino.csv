@@ -444,7 +444,7 @@ es-0442;es;gaming_insult;generated;otra vez con 7-2, sos un salame bárbaro;1;;;
 es-0443;es;gaming_insult;generated;JAJAJA el dealer piensa más que vos, bobo;1;;;;;player;0;
 es-0444;es;gaming_insult;generated;te sentás con 500 y te creés pro, ridículo;1;;;;;player;0;
 es-0445;es;gaming_insult;generated;dejá el póker que no es lo tuyo, nabo;1;;;;;player;0;
-es-0446;es;gaming_insult;generated;Lucas es un regalador, todos le sacamos fichas;1;;;;;player;0;Burla leve en tercera persona: revisar si alcanza para insult.
+es-0446;es;gaming_insult;generated;sos un cajero automático, inútil, regalás todo;1;;;;;player;0;
 es-0447;es;bets_amounts;generated;voy all in con 3.5k;0;0;0;0;0;none;0;
 es-0448;es;bets_amounts;generated;x3 a la docena, vamos;0;0;0;0;0;none;0;
 es-0449;es;bets_amounts;generated;te debo 2 lucas, mañana te las paso;0;0;0;0;0;none;0;
@@ -475,21 +475,21 @@ es-0473;es;bets_amounts;generated;con 72o fui all in y gané 😂;0;0;0;0;0;none
 es-0474;es;bets_amounts;generated;te maté en el river con color jaja;0;0;0;0;0;none;0;"'Te maté' es 'te gané la mano'; no es una amenaza."
 es-0475;es;bets_amounts;generated;8 tiradas gratis y 0 de premio;0;0;0;0;0;none;0;
 es-0476;es;bets_amounts;generated;cuánto paga el pleno? 35 a 1?;0;0;0;0;0;none;0;
-es-0477;es;obfuscated_insult;generated;p.e.l.o.t.u.d.o;1;;;;;player;0;
+es-0477;es;obfuscated_insult;generated;p_e_l_o_t_a_s, te comiste el bluff;1;;;;;player;0;'Pelotas' = pelotudo.
 es-0478;es;obfuscated_insult;generated;sos un f0rr0 de cuarta;1;;;;;player;0;
 es-0479;es;obfuscated_insult;generated;g1l, otra vez regalaste el pozo;1;;;;;player;0;
 es-0480;es;obfuscated_insult;generated;b0lud0 cómo vas a pagar con 7 alto;1;;;;;player;0;"'Boludo' puede ser amistoso; acá ridiculiza la jugada. Revisar si es insult."
-es-0481;es;obfuscated_insult;generated;m4nc0 d3 m13rd4;1;;;;;player;0;
+es-0481;es;obfuscated_insult;generated;re m4nc0, foldeaste las nuts;1;;;;;player;0;
 es-0482;es;obfuscated_insult;generated;h.d.p. me robaste el pozo;1;;;;;player;0;h.d.p. = hijo de puta.
 es-0483;es;obfuscated_insult;generated;c.o.n.c.h.u.d.o, cuánto orto tenés;1;;;;;player;0;'Conchudo' también es 'suertudo': con 'orto' puede ser envidia más que insulto. Caso borde.
 es-0484;es;obfuscated_insult;generated;i.m.b.e.c.i.l;1;;;;;player;0;
 es-0485;es;obfuscated_insult;generated;s0s un 1nút1l;1;;;;;player;0;
-es-0486;es;obfuscated_insult;generated;pelotuuuuudo;1;;;;;player;0;
+es-0486;es;obfuscated_insult;generated;pelotuuuuudo, cómo no subís con ases;1;;;;;player;0;
 es-0487;es;obfuscated_insult;generated;manquiiiito, volvé a la ruleta;1;;;;;player;0;
 es-0488;es;obfuscated_insult;generated;flor de pajer0 sos;1;;;;;player;0;
 es-0489;es;obfuscated_insult;generated;tar@do, ni sabés contar fichas;1;;;;;player;0;
-es-0490;es;obfuscated_insult;generated;1d10t4;1;;;;;player;0;
-es-0491;es;obfuscated_insult;generated;f o r r o;1;;;;;player;0;
+es-0490;es;obfuscated_insult;generated;1d10t4, ni sabés qué le gana a qué;1;;;;;player;0;
+es-0491;es;obfuscated_insult;generated;f o r r o y encima lento;1;;;;;player;0;
 es-0492;es;obfuscated_insult;generated;q pltd, mirá lo que pagaste;1;;;;;player;0;pltd = pelotudo sin vocales.
 es-0493;es;obfuscated_insult;generated;la c0ncha de tu hermana;1;;;;;player;0;
 es-0494;es;obfuscated_insult;generated;chupame la p1ja, manco;1;;;;;player;0;Insulto vulgar con término sexual: no es un avance, revisar sexual_harassment.
@@ -520,13 +520,13 @@ es-0518;es;identity_hate_casino;generated;deberían prohibir a los putos en el c
 es-0519;es;identity_hate_casino;generated;jugás como un down, das vergüenza;;;1;;;player;0;Discapacidad usada como insulto general: revisar si es identity_hate o insult.
 es-0520;es;identity_hate_casino;generated;autista, ¿no ves que te están robando?;;;1;;;player;0;Discapacidad usada como insulto general: revisar si es identity_hate o insult.
 es-0521;es;identity_hate_casino;generated;musulmán, ¿vas a hacer volar la mesa?;;;1;;;player;0;
-es-0522;es;identity_hate_casino;generated;maricón, pagá el call si tenés huevos;;;1;;;player;0;
+es-0522;es;identity_hate_casino;generated;maricón, pagá el call si tenés huevos;;;1;;;player;0;'Maricón' usado como 'cobarde': revisar si es identity_hate o insult.
 es-0523;es;identity_hate_casino;generated;india, volvé a tu toldería;;;1;;;player;0;
 es-0524;es;identity_hate_casino;generated;las mujeres no deberían jugar con plata real;;;1;;;group;0;
 es-0525;es;identity_hate_casino;generated;que se vuelvan a su país todos los paraguas del chat;;;1;;;group;0;
 es-0526;es;identity_hate_casino;generated;gay tenías que ser, foldeás todo;;;1;;;player;0;
-es-0527;es;obfuscated_slur;generated;put0 de m1erd4, salí de la mesa;;;1;;;player;0;
-es-0528;es;obfuscated_slur;generated;t r o l o;;;1;;;player;0;
+es-0527;es;obfuscated_slur;generated;put0 c4g0n, salí de la mesa;;;1;;;player;0;'Puto' también se usa como insulto genérico: revisar si es identity_hate o insult.
+es-0528;es;obfuscated_slur;generated;t r o l o, nadie te invitó;;;1;;;player;0;
 es-0529;es;obfuscated_slur;generated;grone sucio, nadie te quiere acá;;;1;;;player;0;'Grone' es 'negro' al vesre.
 es-0530;es;obfuscated_slur;generated;m4r1c0n;;;1;;;player;0;
 es-0531;es;obfuscated_slur;generated;jud10s de m13rd4, se quedan con todo;;;1;;;group;0;
@@ -535,9 +535,9 @@ es-0533;es;obfuscated_slur;generated;p4r4gu4, volvete;;;1;;;player;0;
 es-0534;es;obfuscated_slur;generated;m0ng0, ni contar sabés;;;1;;;player;0;'Mongo' es 'mogólico' abreviado: revisar si es identity_hate o insult.
 es-0535;es;obfuscated_slur;generated;un tr4v4 jugando, lo que faltaba;;;1;;;player;0;
 es-0536;es;obfuscated_slur;generated;m0n0, volvé al zoológico;;;1;;;player;0;
-es-0537;es;obfuscated_slur;generated;trolaaaaazo;;;1;;;player;0;
+es-0537;es;obfuscated_slur;generated;trolaaaaazo, bancate perder;;;1;;;player;0;
 es-0538;es;obfuscated_slur;generated;los p*tos de la mesa 2 que se vayan;;;1;;;group;0;
-es-0539;es;obfuscated_slur;generated;ch1n0 tr4mp0s0;;;1;;;player;0;
+es-0539;es;obfuscated_slur;generated;ch1n0 tr4mp0s0;;;1;;;player;0;"'Chino' también es apodo cariñoso; acá va con 'tramposo': revisar si ataca el origen."
 es-0540;es;obfuscated_slur;generated;4ut1st4, ni las cartas ves;;;1;;;player;0;Discapacidad usada como insulto: revisar si es identity_hate o insult.
 es-0541;es;obfuscated_slur;generated;t0rt1ll3r4;;;1;;;player;0;
 es-0542;es;affectionate_identity_term;generated;negrita, te guardo lugar en la mesa 2;0;0;0;;;none;0;
@@ -551,10 +551,10 @@ es-0549;es;affectionate_identity_term;generated;tano, sos un capo con las fichas
 es-0550;es;affectionate_identity_term;generated;enano, me debés la revancha;0;0;0;;;none;0;
 es-0551;es;affectionate_identity_term;generated;mi negro, nos vemos en la mesa de las 10;0;0;0;;;none;0;
 es-0552;es;sexual_harassment;generated;mamita, con esa foto de perfil te pago todas las ciegas;;;;1;;player;0;
-es-0553;es;sexual_harassment;generated;te regalo 5k en fichas si prendés la cámara;;;;1;;player;0;
+es-0553;es;sexual_harassment;generated;te regalo 5k en fichas si prendés la cámara;;;;1;;player;0;Intención sexual implícita (fichas a cambio de prender la cámara): caso borde.
 es-0554;es;sexual_harassment;generated;jugamos strip póker vos y yo? 😏;;;;1;;player;0;
 es-0555;es;sexual_harassment;generated;mostrame las tetas y foldeo;;;;1;;player;0;
-es-0556;es;sexual_harassment;generated;qué hacés sola en la mesa a esta hora, bebé?;;;;1;;player;0;
+es-0556;es;sexual_harassment;generated;qué hacés sola en la mesa a esta hora, bebé?;;;;1;;player;0;Avance implícito, sin pedido sexual explícito: caso borde.
 es-0557;es;sexual_harassment;generated;pasame tu insta que te quiero conocer mejor 😘;;;;1;;player;0;Avance no pedido sin contenido explícito: caso borde.
 es-0558;es;sexual_harassment;generated;con ese nombre seguro estás re buena;;;;1;;player;0;
 es-0559;es;sexual_harassment;generated;si ganás te invito a mi depto, si perdés también;;;;1;;player;0;
@@ -566,7 +566,7 @@ es-0564;es;sexual_harassment;generated;nena, te chupo toda;;;;1;;player;0;
 es-0565;es;sexual_harassment;generated;sentate en mi falda que te enseño a jugar;;;;1;;player;0;
 es-0566;es;sexual_harassment;generated;cuánto cobrás la hora, bombón?;;;;1;;player;0;
 es-0567;es;sexual_harassment;generated;dejá el póker y vení a jugar conmigo a otra cosa 😈;;;;1;;player;0;
-es-0568;es;sexual_harassment;generated;sos mujer? pasá foto o no te creo;;;;1;;player;0;
+es-0568;es;sexual_harassment;generated;sos mujer? pasá foto o no te creo;;;;1;;player;0;"Pide foto por ser mujer; la intención sexual es implícita: caso borde."
 es-0569;es;sexual_harassment;generated;te mando una foto de mi pija?;;;;1;;player;0;
 es-0570;es;sexual_harassment;generated;seguro la chupás mejor de lo que jugás;;;;1;;player;0;También insulta: revisar insult.
 es-0571;es;sexual_harassment;generated;papito, con esas manos imaginate en otro lado 😏;;;;1;;player;0;
@@ -594,7 +594,7 @@ es-0592;es;quoting_reporting_casino;generated;me escribió 'puta' por privado, y
 es-0593;es;quoting_reporting_casino;generated;al dealer le dijeron 'mono', banéenlo ya;0;0;0;;;none;0;
 es-0594;es;quoting_reporting_casino;generated;le pedí que no me diga 'mamita', me incomoda;0;0;0;;;none;0;
 es-0595;es;quoting_reporting_casino;generated;¿por qué me silenciaron si solo dije 'la puta madre'?;0;0;0;;;none;0;Cita una puteada propia: profanity queda a criterio.
-es-0596;es;quoting_reporting_casino;generated;copio lo que me mandó: 'sé dónde vivís'. ¿es normal?;0;0;0;;;none;0;
+es-0596;es;quoting_reporting_casino;generated;me mandó 'ya sé en qué barrio vivís', ¿lo reporto?;0;0;0;;;none;0;
 es-0597;es;self_deprecation;generated;qué pelotudo que soy, foldeé el full;0;0;0;;;none;0;
 es-0598;es;self_deprecation;generated;soy el peor jugador de esta mesa jajaja;0;0;0;;;none;0;
 es-0599;es;self_deprecation;generated;me fundí otra vez, soy un desastre;0;0;0;;;none;0;
@@ -616,7 +616,7 @@ es-0614;es;profanity_at_game;generated;me cago en las cartas;0;0;0;;1;none;0;
 es-0615;es;profanity_at_game;generated;la puta que me parió, se me cortó internet en la final;0;0;0;;1;none;0;
 es-0616;es;profanity_at_game;generated;set contra set y pierdo, carajo;0;0;0;;1;none;0;
 es-0617;es;profanity_at_game;generated;qué cagada, me olvidé de retirar;0;0;0;;1;none;0;
-es-0618;es;profanity_at_game;generated;LPM otro river así;0;0;0;;1;none;0;LPM = la puta madre.
+es-0618;es;profanity_at_game;generated;LPM, siempre le cae la carta justa en el turn;0;0;0;;1;none;0;LPM = la puta madre.
 es-0619;es;profanity_at_game;generated;ruleta del orto, ocho rojos seguidos;0;0;0;;1;none;0;
 es-0620;es;profanity_at_game;generated;a la mierda, me retiro por hoy;0;0;0;;1;none;0;
 es-0621;es;profanity_at_game;generated;la put4 m4dr3 qué suerte tengo;0;0;0;;1;none;0;
@@ -649,4 +649,4 @@ es-0647;es;counter_speech;generated;reportado por racista, acá no se habla así
 es-0648;es;counter_speech;generated;la religión de cada uno no tiene nada que ver con el póker;;;0;;;none;0;
 es-0649;es;counter_speech;generated;dejá de decirle 'trava', se llama Sofi y juega mejor que vos;;;0;;;none;0;Cierra con una chicana leve.
 es-0650;es;counter_speech;generated;si vas a hablar así de los judíos, andate del chat;;;0;;;none;0;
-es-0651;es;counter_speech;generated;racista de mierda, andate;;;0;;;none;0;Contradiscurso que insulta al otro jugador: revisar insult.
+es-0651;es;counter_speech;generated;llamar 'macaco' a un brasileño es racismo, borralo;;;0;;;none;0;

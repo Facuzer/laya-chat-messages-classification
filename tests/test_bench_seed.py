@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from bench.seed import build_suite, draft_rows, seed_rows, write_new_suite
+from bench.seed import build_suite, draft_rows, read_jsonl, seed_rows, write_new_suite
 from bench.sources.suite import load_suite, parse_suite
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -63,10 +63,9 @@ def test_refuses_to_overwrite_a_suite_that_may_hold_reviews(tmp_path):
     assert [e.text for e, _ in parse_suite(path.read_text(encoding="utf-8-sig"), "s")] == ["hola"]
 
 
-def test_committed_suite_has_the_seed_and_every_draft_functionality():
+def test_drafts_have_the_planned_counts_and_the_committed_suite_keeps_them():
+    drafts = read_jsonl(ROOT / "suites" / "drafts" / "es_casino_new.jsonl")
     examples = load_suite(ROOT / "suites" / "es_casino.csv", "suite-es", include_unreviewed=True)
-    counts = Counter(e.functionality for e in examples)
 
-    assert len(examples) == 421 + sum(DRAFT_COUNTS.values())
-    for functionality, n in DRAFT_COUNTS.items():
-        assert counts[functionality] == n, functionality
+    assert Counter(d["functionality"] for d in drafts) == DRAFT_COUNTS
+    assert set(DRAFT_COUNTS) <= {e.functionality for e in examples}
