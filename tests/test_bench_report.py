@@ -54,6 +54,12 @@ def test_comparisons_functionalities_routing_notes_and_thresholds_are_rendered()
     assert "Nota de detoxify. Umbrales de operación: n/a." in md
 
 
+def test_small_thresholds_keep_their_significant_digits():
+    md = render(board(thresholds={"laya": {"flag": 0.00412}, "detoxify": {"flag": None}}))
+
+    assert "Umbrales de operación: flag=0.00412." in md
+
+
 def test_latency_section_only_when_measured():
     assert "## Latencia" not in render(board())
     latency = [{"contestant": "laya", "device": "cpu", "lang": "es", "n": 200, "p50_ms": 120.4, "p95_ms": 300.2,

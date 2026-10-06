@@ -14,7 +14,7 @@ from bench.report import render
 from bench.runner import run
 from bench.scoreboard import build_scoreboard
 from bench.sources import DEFAULT_MAX_PER_SOURCE, SOURCES, load_sources, stable_hash
-from bench.sources.suite import agreement, parse_suite
+from bench.sources.suite import SuiteError, agreement, parse_suite
 from bench.taxonomy import LANGS, SCORED, gold
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -81,17 +81,19 @@ def cmd_latency(args, sources, factories) -> int:
     if not texts:
         raise CliError(f"No hay mensajes en '{args.lang}' para medir.")
     out = Path(args.out)
-    entries = [e for e in read_json(out / "latency.json", [])
-               if not (e["contestant"] in names and e["device"] == args.device and e["lang"] == args.lang)]
+    entries = read_json(out / "latency.json", [])
     for contestant in build_contestants(names, args.device, factories=factories):
         result = measure(contestant, texts, args.lang, batch_size=args.batch_size)
-        entries.append({"contestant": contestant.name, "device": args.device, "lang": args.lang, **result})
         unload = getattr(contestant, "unload", None)
         if unload is not None:
             unload()
+        # Saved after every contestant: a CUDA out-of-memory on a later one must not discard the earlier numbers.
+        entries = [e for e in entries
+                   if not (e["contestant"] == contestant.name and e["device"] == args.device and e["lang"] == args.lang)]
+        entries.append({"contestant": contestant.name, "device": args.device, "lang": args.lang, **result})
+        write_json_atomic(out / "latency.json", entries)
         print(f"{contestant.name:<18} p50 {result['p50_ms']:.0f} ms · p95 {result['p95_ms']:.0f} ms · "
               f"{result['throughput_per_s'] or 0:.0f} mensajes/s en lotes de {args.batch_size}")
-    write_json_atomic(out / "latency.json", entries)
     return 0
 
 
@@ -144,6 +146,6 @@ def main(argv=None, sources=None, factories=None) -> int:
     args = parser.parse_args(argv)
     try:
         return args.handler(args, sources, factories)
-    except (CliError, ValueError) as e:
+    except (CliError, SuiteError) as e:
         print(e)
         return 1

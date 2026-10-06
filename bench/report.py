@@ -118,7 +118,7 @@ def render(board: dict) -> str:
 
     lines += ["## Modelos", ""]
     for c in meta["contestants"]:
-        shown = ", ".join(f"{label}={_num(t)}" for label, t in board["thresholds"].get(c["name"], {}).items() if t is not None)
+        shown = ", ".join(f"{label}={t:.3g}" for label, t in board["thresholds"].get(c["name"], {}).items() if t is not None)
         lines.append(f"- **{c['name']}** (`{c['version']}`, {c['license']}): {c['notes']} "
                      f"Umbrales de operación: {shown or 'n/a'}.")
     lines += ["", "## Fuentes", ""]

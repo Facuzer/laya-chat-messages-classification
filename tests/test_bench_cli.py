@@ -57,6 +57,15 @@ def test_unknown_names_are_reported(tmp_path, capsys):
     assert "nope" in capsys.readouterr().out
 
 
+def test_internal_errors_keep_their_traceback(tmp_path):
+    class Broken(Fake):
+        def predict(self, texts, lang):
+            raise ValueError("bug interno")
+
+    with pytest.raises(ValueError, match="bug interno"):
+        run_main("run", "--contestants", "fake", "--out", str(tmp_path), factories={"fake": Broken})
+
+
 def test_latency_keeps_one_entry_per_contestant_device_and_language(tmp_path):
     args = ("latency", "--contestants", "fake", "--device", "cpu", "--lang", "es", "--n", "5", "--out", str(tmp_path))
 
@@ -64,6 +73,21 @@ def test_latency_keeps_one_entry_per_contestant_device_and_language(tmp_path):
 
     entries = json.loads((tmp_path / "latency.json").read_text(encoding="utf-8"))
     assert [(e["contestant"], e["device"], e["lang"], e["n"]) for e in entries] == [("fake", "cpu", "es", 5)]
+
+
+def test_latency_keeps_earlier_measurements_when_a_later_contestant_fails(tmp_path):
+    class Exploding(Fake):
+        name = "exploding"
+
+        def predict(self, texts, lang):
+            raise RuntimeError("CUDA out of memory")
+
+    with pytest.raises(RuntimeError):
+        run_main("latency", "--contestants", "fake,exploding", "--n", "3", "--out", str(tmp_path),
+                 factories={"fake": Fake, "exploding": Exploding})
+
+    entries = json.loads((tmp_path / "latency.json").read_text(encoding="utf-8"))
+    assert [e["contestant"] for e in entries] == ["fake"]
 
 
 def test_latency_unloads_each_contestant_after_measuring_it(tmp_path):
