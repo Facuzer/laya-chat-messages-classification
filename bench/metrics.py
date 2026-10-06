@@ -51,7 +51,7 @@ def at_threshold(gold: list[bool], scores: list[float], threshold: float) -> dic
     return {
         "recall": tp / positives if positives else None,
         "fpr": fp / negatives if negatives else None,
-        "precision": tp / (tp + fp) if tp + fp else None,
+        "precision": tp / (tp + fp) if tp + fp and _both_classes(gold) else None,
     }
 
 
