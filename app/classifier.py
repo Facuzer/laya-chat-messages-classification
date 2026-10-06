@@ -87,10 +87,11 @@ class LayaClassifier:
         return to_classification(result, self.threshold, latency_ms)
 
 
-def build_router(checkpoint: Path | None = None):
+def build_router(checkpoint: Path | None = None, device: str | None = None):
     """A Router with no checkpoint loaded yet; routing decisions work without loading one.
 
     `checkpoint` is a local fine-tuned directory that answers in place of `multilingual`.
+    `device` overrides LAYA_DEVICE (the benchmark picks it per run).
     """
     # Imported here so that importing this module (e.g. in tests) does not pull in torch.
     from laya import Router
@@ -100,7 +101,7 @@ def build_router(checkpoint: Path | None = None):
     # unaccented Spanish often stays unidentified. Unidentified text takes `default`: sending it
     # to the multilingual checkpoint keeps Spanish off the English one, while text Laya does
     # identify as English still goes there.
-    return Router(models=models, device=os.environ.get("LAYA_DEVICE") or None, default="multilingual")
+    return Router(models=models, device=device or os.environ.get("LAYA_DEVICE") or None, default="multilingual")
 
 
 def load_classifier(active: ActiveCheckpoint | None = None) -> LayaClassifier:

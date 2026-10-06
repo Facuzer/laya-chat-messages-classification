@@ -28,3 +28,13 @@ def test_real_toldbr_and_olidbr_load_with_both_flag_classes():
     for examples in (told, olid):
         flags = Counter(gold(e, FLAG) for e in examples)
         assert flags[True] > 100 and flags[False] > 100, flags
+
+
+def test_real_laya_answers_every_taxonomy_question():
+    from bench.contestants.base import effective_scores
+    from bench.contestants.laya import laya_taxonomy
+
+    contestant = laya_taxonomy()
+    scores = [effective_scores(contestant, r) for r in contestant.predict(["sos un pelotudo", "buena mano, gg"], "es")]
+
+    assert all(0.0 <= s["flag"] <= 1.0 and 0.0 <= s["targets_player"] <= 1.0 for s in scores)

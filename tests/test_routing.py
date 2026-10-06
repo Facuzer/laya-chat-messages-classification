@@ -47,3 +47,15 @@ def test_fine_tuned_checkpoint_replaces_only_the_multilingual_model(router, tmp_
 
 def test_without_checkpoint_multilingual_comes_from_the_hub(router):
     assert "convaiinnovations" in str(router.models["multilingual"])
+
+
+def test_explicit_device_overrides_the_environment(monkeypatch):
+    import laya
+
+    seen = {}
+    monkeypatch.setattr(laya, "Router", lambda **kwargs: seen.update(kwargs))
+    monkeypatch.setenv("LAYA_DEVICE", "cuda")
+
+    build_router(device="cpu")
+
+    assert seen["device"] == "cpu"
