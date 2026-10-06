@@ -1,9 +1,11 @@
+import re
+
 import pytest
 
 import bench.contestants.laya as laya_module
 from bench.contestants.base import effective_scores
 from bench.contestants.laya import (
-    POSITIVE, TAXONOMY_QUESTIONS, LayaContestant, flatten, laya_app, laya_taxonomy, taxonomy_scores,
+    LAYA_REVISION, POSITIVE, TAXONOMY_QUESTIONS, LayaContestant, flatten, laya_app, laya_taxonomy, taxonomy_scores,
 )
 from bench.taxonomy import CATEGORIES, FLAG, TARGETS_PLAYER
 
@@ -83,11 +85,17 @@ def test_version_follows_the_questions():
     assert same.version != LayaContestant("x", changed, taxonomy_scores, "", router=FakeRouter()).version
 
 
-def test_router_is_built_lazily_once_with_the_device_and_both_checkpoints(monkeypatch):
+def test_version_names_the_pinned_laya_revision():
+    assert re.fullmatch(r"[0-9a-f]{40}", LAYA_REVISION)
+    assert f"-r{LAYA_REVISION[:12]}" in laya_taxonomy(router=FakeRouter()).version
+    assert f"-r{LAYA_REVISION[:12]}" in laya_app(router=FakeRouter()).version
+
+
+def test_router_is_built_lazily_once_with_the_device_revision_and_both_checkpoints(monkeypatch):
     built = []
 
-    def fake_build_router(device=None):
-        built.append(device)
+    def fake_build_router(device=None, revision=None):
+        built.append((device, revision))
         return FakeRouter()
 
     monkeypatch.setattr(laya_module, "build_router", fake_build_router)
@@ -97,13 +105,13 @@ def test_router_is_built_lazily_once_with_the_device_and_both_checkpoints(monkey
     contestant.predict(["hola"], "es")
     contestant.predict(["chau"], "es")
 
-    assert built == ["cpu"]
+    assert built == [("cpu", LAYA_REVISION)]
     assert contestant._router.preloaded == ["english", "multilingual"]
 
 
 def test_unload_drops_the_router_and_the_next_prediction_rebuilds_it(monkeypatch):
     built = []
-    monkeypatch.setattr(laya_module, "build_router", lambda device=None: built.append(device) or FakeRouter())
+    monkeypatch.setattr(laya_module, "build_router", lambda device=None, revision=None: built.append(device) or FakeRouter())
     contestant = laya_taxonomy()
 
     contestant.predict(["hola"], "es")

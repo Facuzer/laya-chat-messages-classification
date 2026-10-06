@@ -59,3 +59,15 @@ def test_explicit_device_overrides_the_environment(monkeypatch):
     build_router(device="cpu")
 
     assert seen["device"] == "cpu"
+
+
+def test_revision_is_passed_to_the_router_and_defaults_to_none(monkeypatch):
+    import laya
+
+    seen = []
+    monkeypatch.setattr(laya, "Router", lambda **kwargs: seen.append(kwargs))
+
+    build_router(revision="abc")
+    build_router()
+
+    assert [kwargs["revision"] for kwargs in seen] == ["abc", None]

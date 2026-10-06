@@ -12,6 +12,9 @@ from app.classifier import STATE_KEY, build_router
 from bench.contestants.base import free_gpu
 from bench.taxonomy import FLAG, LANGS, TARGETS_PLAYER
 
+# The convaiinnovations/laya commit the preliminary scoreboard ran on (read from the local HF cache on 2026-10-06).
+LAYA_REVISION = "7b928d828b7b0e022f929d9bd2e44165aa270148"
+
 # One question per category, positive option first. A first wording, not tuned: the report says so.
 TAXONOMY_QUESTIONS = {
     "insult": {
@@ -109,12 +112,13 @@ class LayaContestant:
         self.notes = notes
         self.device = device
         self._router = router
-        # The questions, the laya version and the routing setup all change the raw answers.
-        self.version = f"q{fingerprint(questions)}-laya{metadata.version('laya')}-default-multilingual"
+        # The questions, the laya version, the checkpoint revision and the routing setup all change the raw answers.
+        self.version = (f"q{fingerprint(questions)}-laya{metadata.version('laya')}-r{LAYA_REVISION[:12]}"
+                        "-default-multilingual")
 
     def _get_router(self):
         if self._router is None:
-            self._router = build_router(device=self.device)
+            self._router = build_router(device=self.device, revision=LAYA_REVISION)
             self._router.preload(["english", "multilingual"])
         return self._router
 
