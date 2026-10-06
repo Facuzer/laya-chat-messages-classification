@@ -42,7 +42,7 @@ La parte más importante del examen es la **suite propia** (`suites/es_casino.cs
 1. Abrí `suites/es_casino.csv` en Excel o Google Sheets. Está separado por `;`.
 2. En cada fila, leé el texto, corregí las categorías y `target`, y poné `reviewed` en `1`. Las sugerencias vienen de un generador: no las des por buenas.
 3. Si una fila no tiene sentido, borrala.
-4. **Sumá mensajes reales de memoria:** al menos 50 frases que hayas visto en chats de juegos o de póker, con `author` en `human`. Son las más valiosas, y el reporte las separa de las generadas.
+4. **Sumá mensajes reales de memoria:** al menos 50 frases que hayas visto en chats de juegos o de póker, con `author` en `human`. Son las más valiosas, y el reporte las separa de las generadas. Cada fila nueva necesita un `id` único (por ejemplo `es-h001`, `es-h002`…), `lang` en `es`, `author` en `human` y `reviewed` en `1`. Sin `reviewed` en `1` el benchmark la ignora, y si falta alguno de los otros da un error que dice en qué línea.
 5. Guardá como CSV (UTF-8). Sirve tanto con `;` como con `,`. Ojo: Excel convierte en fórmula un texto que empieza con `=`, `+` o `-`; si te pasa, poné un espacio adelante.
 6. **Segunda opinión:** que otra persona revise una copia de las mismas ~150 filas sin mirar la primera revisión, y compará las dos:
    `uv run python scripts/bench.py agreement suites/es_casino.csv copia.csv`

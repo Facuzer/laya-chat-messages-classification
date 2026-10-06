@@ -153,6 +153,6 @@ def test_a_line_cut_inside_a_non_ascii_id_does_not_crash_loading(tmp_path):
 
 def test_ids_with_unicode_line_separators_survive_the_cache(tmp_path):
     cache, contestant = PredictionCache(tmp_path), FakeContestant()
-    run([contestant], [ex("a b")], cache, **QUIET)
+    run([contestant], [ex("a\u2028b")], cache, **QUIET)
 
-    assert set(cache.load(contestant, "s")) == {"s:a b"}
+    assert set(cache.load(contestant, "s")) == {"s:a\u2028b"}
