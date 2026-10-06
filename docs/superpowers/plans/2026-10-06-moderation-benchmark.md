@@ -107,6 +107,8 @@ Each source's mapping only sets what that source determines. Its explicit rules 
 
 - **Python and tooling:** Python `>=3.11,<3.14` (repo pins 3.13), run through `uv`. Keep `laya==0.3.22` and the locked `transformers` 5.18 / `torch` 2.14 (CUDA index). **Never downgrade them.** If a new dependency needs a downgrade, stop and report BLOCKED.
 - **Dependency group:** new deps go in a `bench` dependency group listed in `[tool.uv] default-groups`.
+- **Network:** a TLS-inspecting proxy sits in front of this machine. Run every `uv` command with `UV_SYSTEM_CERTS=1` (e.g. `UV_SYSTEM_CERTS=1 uv run pytest`).
+- **GPU:** the machine has an NVIDIA RTX 500 Ada Laptop GPU with 4 GB. Only one contestant's model fits at a time, so contestants expose `unload()` and the runner and the latency command call it when a contestant is done.
 - **Fast suite** (`uv run pytest`) must never download a model or dataset and must use fakes. Anything that downloads is `@pytest.mark.slow`.
 - **Imports:** heavy libraries (`torch`, `transformers`, `datasets`, `detoxify`, `sklearn`) are imported **inside functions**, the same pattern as `app/classifier.py:build_router`.
 - **Language:** code, comments and docstrings in English. CLI output, `bench_out/scoreboard.md` and `docs/benchmark.md` in Spanish (repo convention: `scripts/*.py` print in Spanish).
@@ -1928,9 +1930,11 @@ git commit
   - `Contestant` protocol, with attributes `name`, `version`, `languages: frozenset[str]`, `notes` and `license` (an SPDX id), and methods `predict(texts, lang) -> list[dict[str, float]]` and `to_scores(raw) -> dict[str, float]`
   - `effective_scores(contestant, raw) -> dict[str, float]`, which adds `flag` = the max of the three core categories when all are present and `flag` is missing
   - `map_labels(raw, mapping) -> dict[str, float]`
+  - `free_gpu() -> None`
+  - an optional `unload()` method on contestants
   - `text_hash(text) -> str`
   - `PredictionCache(root)` with `.load(contestant, source) -> dict[id, (text_sha, raw)]` and `.append(contestant, source, rows: list[(id, text_sha, raw)])`
-  - `run(contestants, examples, cache, batch_size=32, log=print) -> dict[contestant_name, dict[example_id, raw]]`
+  - `run(contestants, examples, cache, batch_size=32, log=print) -> dict[contestant_name, dict[example_id, raw]]`, which calls `contestant.unload()`, when defined, once each contestant is done
 
 - [ ] **Step 1: Write the failing tests.** Create `tests/test_bench_runner.py`:
 
@@ -2044,6 +2048,22 @@ def test_cache_folder_name_is_safe_on_windows(tmp_path):
     assert [p.parent.name for p in tmp_path.rglob("*.jsonl")] == ["fake@rev_abc_def"]
 
 
+def test_each_contestant_is_unloaded_once_it_is_done(tmp_path):
+    events = []
+
+    class Unloadable(FakeContestant):
+        def predict(self, texts, lang):
+            events.append("predict")
+            return super().predict(texts, lang)
+
+        def unload(self):
+            events.append("unload")
+
+    run([Unloadable()], [ex(1), ex(2, lang="pt", source="p")], PredictionCache(tmp_path), **QUIET)
+
+    assert events == ["predict", "predict", "unload"]
+
+
 class Fixed:
     def __init__(self, scores):
         self.scores = scores
@@ -2095,6 +2115,9 @@ class Contestant(Protocol):
     def to_scores(self, raw: dict[str, float]) -> dict[str, float]:
         """Raw outputs mapped onto taxonomy keys. Pure, so scoring from the cache needs no model."""
 
+    # Optional `unload()`: drop the loaded model. The runner calls it once a contestant is done, so the
+    # next contestant fits on a small GPU.
+
 
 def effective_scores(contestant, raw: dict[str, float]) -> dict[str, float]:
     scores = dict(contestant.to_scores(raw))
@@ -2106,6 +2129,19 @@ def effective_scores(contestant, raw: dict[str, float]) -> dict[str, float]:
 def map_labels(raw: dict[str, float], mapping: dict[str, str]) -> dict[str, float]:
     """{our key: raw[their label]} for the labels `mapping` names and `raw` has."""
     return {ours: float(raw[theirs]) for theirs, ours in mapping.items() if theirs in raw}
+
+
+def free_gpu() -> None:
+    """Give back the GPU memory of a model that was just dropped, so the next one fits."""
+    import gc
+
+    gc.collect()
+    try:
+        import torch
+    except ImportError:
+        return
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
 ```
 
 Create `bench/cache.py`:
@@ -2202,6 +2238,9 @@ def run(contestants, examples, cache: PredictionCache, batch_size: int = 32, log
                 cache.append(contestant, source, rows)
                 cached.update({example_id: (sha, out) for example_id, sha, out in rows})
             raw[contestant.name].update({e.id: cached[e.id][1] for e in group})
+        unload = getattr(contestant, "unload", None)
+        if unload is not None:
+            unload()
     return raw
 ```
 
@@ -2237,6 +2276,7 @@ git commit
   - `taxonomy_scores(raw)`, `app_scores(raw)`
   - `LayaContestant(name, questions, scores, notes, device=None, router=None)`
   - `laya_taxonomy(device=None, router=None)`, `laya_app(device=None, router=None)`
+  - `LayaContestant.unload()`
 
 Verified Laya 0.3.22 API:
 - `Router.predict_batch(requests)` takes `requests = [{"state": {...}, "questions": {...}}]` and returns results in input order.
@@ -2349,6 +2389,18 @@ def test_router_is_built_lazily_once_with_the_device_and_both_checkpoints(monkey
     assert contestant._router.preloaded == ["english", "multilingual"]
 
 
+def test_unload_drops_the_router_and_the_next_prediction_rebuilds_it(monkeypatch):
+    built = []
+    monkeypatch.setattr(laya_module, "build_router", lambda device=None: built.append(device) or FakeRouter())
+    contestant = laya_taxonomy()
+
+    contestant.predict(["hola"], "es")
+    contestant.unload()
+    contestant.predict(["chau"], "es")
+
+    assert len(built) == 2
+
+
 @pytest.mark.parametrize("qid", list(TAXONOMY_QUESTIONS))
 def test_every_question_refers_to_the_message_and_has_two_or_three_options(qid):
     question = TAXONOMY_QUESTIONS[qid]
@@ -2413,6 +2465,7 @@ from importlib import metadata
 
 from app.classifier import QUESTIONS as APP_QUESTIONS
 from app.classifier import STATE_KEY, build_router
+from bench.contestants.base import free_gpu
 from bench.taxonomy import FLAG, LANGS, TARGETS_PLAYER
 
 # One question per category, positive option first. A first wording, not tuned: the report says so.
@@ -2528,6 +2581,10 @@ class LayaContestant:
     def to_scores(self, raw: dict[str, float]) -> dict[str, float]:
         return self._scores(raw)
 
+    def unload(self) -> None:
+        self._router = None
+        free_gpu()
+
 
 def laya_taxonomy(device: str | None = None, router=None) -> LayaContestant:
     return LayaContestant("laya", TAXONOMY_QUESTIONS, taxonomy_scores, TAXONOMY_NOTES, device=device, router=router)
@@ -2578,7 +2635,7 @@ git commit
 - Consumes: `bench.contestants.base.map_labels`, `bench.taxonomy.LANGS`, and the Laya factories from Task 10.
 - Produces:
   - `DETOXIFY_STYLE`
-  - `DetoxifyContestant(device=None, model=None)`
+  - `DetoxifyContestant(device=None, model=None)`, with `unload()`; `HFContestant` also has `unload()`
   - `HFContestant(name, model_id, revision, label_map, notes, license, languages=..., max_length=256, device=None, loader=None)`
   - `HORIZON_REVISION`, `horizon_mmbert(device=None)`
   - `FACTORIES: dict[str, Callable[[str | None], Contestant]]`
@@ -2669,6 +2726,24 @@ def test_hf_contestant_applies_sigmoid_names_outputs_and_truncates():
     assert contestant.version == "a" * 12
 
 
+def test_unload_releases_the_model_and_the_next_prediction_reloads_it():
+    loads = []
+
+    def loader():
+        loads.append(1)
+        return FakeTokenizer(), FakeModel()
+
+    contestant = HFContestant("h", "org/model", "a" * 40, DETOXIFY_STYLE, "", "MIT", device="cpu", loader=loader)
+    contestant.predict(["a"], "es")
+    contestant.unload()
+    contestant.predict(["b"], "es")
+
+    assert len(loads) == 2
+    detoxify = DetoxifyContestant(model=FakeDetoxify(DETOX_OUT))
+    detoxify.unload()
+    assert detoxify._model is None
+
+
 def test_horizon_is_pinned_to_a_full_revision_sha():
     assert re.fullmatch(r"[0-9a-f]{40}", HORIZON_REVISION)
 
@@ -2705,7 +2780,7 @@ from __future__ import annotations
 
 from importlib import metadata
 
-from bench.contestants.base import map_labels
+from bench.contestants.base import free_gpu, map_labels
 from bench.taxonomy import LANGS
 
 # Detoxify-style label names → taxonomy. `toxicity` and `severe_toxicity` stay out: they include profanity.
@@ -2749,6 +2824,10 @@ class DetoxifyContestant:
 
     def to_scores(self, raw: dict[str, float]) -> dict[str, float]:
         return map_labels(raw, DETOXIFY_STYLE)
+
+    def unload(self) -> None:
+        self._model = None
+        free_gpu()
 ```
 
 Create `bench/contestants/hf.py`, with `HORIZON_REVISION` set to the SHA from Step 1:
@@ -2758,7 +2837,7 @@ Create `bench/contestants/hf.py`, with `HORIZON_REVISION` set to the SHA from St
 
 from __future__ import annotations
 
-from bench.contestants.base import map_labels
+from bench.contestants.base import free_gpu, map_labels
 from bench.contestants.detoxify import DETOXIFY_STYLE
 from bench.taxonomy import LANGS
 
@@ -2817,6 +2896,10 @@ class HFContestant:
 
     def to_scores(self, raw: dict[str, float]) -> dict[str, float]:
         return map_labels(raw, self.label_map)
+
+    def unload(self) -> None:
+        self._loaded = None
+        free_gpu()
 
 
 def horizon_mmbert(device: str | None = None) -> HFContestant:
@@ -3512,6 +3595,17 @@ def test_latency_keeps_one_entry_per_contestant_device_and_language(tmp_path):
     assert [(e["contestant"], e["device"], e["lang"], e["n"]) for e in entries] == [("fake", "cpu", "es", 5)]
 
 
+def test_latency_unloads_each_contestant_after_measuring_it(tmp_path):
+    unloaded = []
+
+    class Unloading(Fake):
+        def unload(self):
+            unloaded.append(self.name)
+
+    assert run_main("latency", "--contestants", "fake", "--n", "3", "--out", str(tmp_path), factories={"fake": Unloading}) == 0
+    assert unloaded == ["fake"]
+
+
 def test_percentile_uses_nearest_rank():
     assert percentile([5, 1, 3, 2, 4], 50) == 3
     assert percentile(list(range(1, 11)), 95) == 10
@@ -3636,7 +3730,7 @@ def cmd_run(args, sources, factories) -> int:
         raise CliError("No hay ejemplos para evaluar.")
     contestants = build_contestants(names, None if args.device == "auto" else args.device, factories=factories)
     out = Path(args.out)
-    raw = run(contestants, examples, PredictionCache(out / "predictions"))
+    raw = run(contestants, examples, PredictionCache(out / "predictions"), batch_size=args.batch_size)
     print("Calculando métricas…")
     board = build_scoreboard(examples, contestants, raw, n_boot=args.bootstrap)
     board["meta"] = {
@@ -3667,6 +3761,9 @@ def cmd_latency(args, sources, factories) -> int:
     for contestant in build_contestants(names, args.device, factories=factories):
         result = measure(contestant, texts, args.lang, batch_size=args.batch_size)
         entries.append({"contestant": contestant.name, "device": args.device, "lang": args.lang, **result})
+        unload = getattr(contestant, "unload", None)
+        if unload is not None:
+            unload()
         print(f"{contestant.name:<18} p50 {result['p50_ms']:.0f} ms · p95 {result['p95_ms']:.0f} ms · "
               f"{result['throughput_per_s'] or 0:.0f} mensajes/s en lotes de {args.batch_size}")
     write_json_atomic(out / "latency.json", entries)
@@ -3701,6 +3798,7 @@ def main(argv=None, sources=None, factories=None) -> int:
     p.add_argument("--include-unreviewed", action="store_true", help="incluir filas sin revisar (scoreboard PRELIMINAR)")
     p.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     p.add_argument("--bootstrap", type=int, default=1000, help="remuestreos para los intervalos de confianza")
+    p.add_argument("--batch-size", type=int, default=32, help="mensajes por lote; bajalo si la GPU se queda sin memoria")
     p.add_argument("--out", default=str(DEFAULT_OUT))
     p.set_defaults(handler=cmd_run)
 
@@ -3768,7 +3866,7 @@ git commit
 - Create: `docs/benchmarks/<run date>-preliminar.md`, copied from `bench_out/scoreboard.md`
 - Modify: `docs/benchmark.md` (append), `README.md`
 
-This task runs real models on the GPU (RTX 3080 Ti). The first run downloads ~4 GB of models plus the datasets.
+This task runs real models on the GPU (RTX 500 Ada Laptop, 4 GB). The first run downloads ~4 GB of models plus the datasets.
 
 - [ ] **Step 1: Check the full test suite, including the slow tests.**
 
@@ -3790,6 +3888,8 @@ If a source has 0 negatives for `flag`, stop and report it as a mapping bug.
 - [ ] **Step 3: Run the benchmark.**
 
 Run: `uv run python scripts/bench.py run --include-unreviewed --device cuda`
+
+If CUDA runs out of memory, rerun the same command with `--batch-size 8`; finished batches stay in the cache.
 
 Expected:
 - per-source progress lines for each contestant, ending with `Listo: …\bench_out\scoreboard.md`
