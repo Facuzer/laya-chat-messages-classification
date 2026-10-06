@@ -87,3 +87,11 @@ def test_agreement_is_cohens_kappa_per_category():
     assert agreement(a, a)["insult"] == {"n": 4, "kappa": 1.0}
     assert agreement(a, b)["insult"] == {"n": 4, "kappa": 0.5}
     assert agreement(a, b)["profanity"] == {"n": 0, "kappa": None}
+
+
+def test_a_suite_saved_as_ansi_by_excel_asks_for_utf8(tmp_path):
+    path = tmp_path / "suite.csv"
+    path.write_bytes(csv_text(with_cell("text", "vení, manco")).encode("cp1252"))
+
+    with pytest.raises(SuiteError, match="UTF-8"):
+        load_suite(path, "s")

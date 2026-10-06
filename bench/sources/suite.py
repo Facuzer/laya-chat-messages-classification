@@ -73,7 +73,11 @@ def parse_suite(text: str, source: str) -> list[tuple[Example, bool]]:
 
 
 def load_suite(path: Path, source: str, include_unreviewed: bool = False) -> list[Example]:
-    rows = parse_suite(Path(path).read_text(encoding="utf-8-sig"), source)
+    try:
+        text = Path(path).read_text(encoding="utf-8-sig")
+    except UnicodeDecodeError:
+        raise SuiteError(f"{path}: el archivo no está en UTF-8. En Excel usá «Guardar como» → «CSV UTF-8 (delimitado por comas)».") from None
+    rows = parse_suite(text, source)
     return [example for example, reviewed in rows if reviewed or include_unreviewed]
 
 
