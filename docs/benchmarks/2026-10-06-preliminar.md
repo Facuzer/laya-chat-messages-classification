@@ -2,7 +2,7 @@
 
 > **PRELIMINAR:** incluye filas de la suite que nadie revisó todavía. Sirve para probar la herramienta, no para decidir.
 
-Generado: 2026-10-06T19:49:26Z · Remuestreos bootstrap: 1000
+Generado: 2026-10-06T20:39:48Z · Remuestreos bootstrap: 1000
 
 ## Cómo leer esto
 
@@ -19,7 +19,7 @@ Generado: 2026-10-06T19:49:26Z · Remuestreos bootstrap: 1000
 | hatecheck-en | en | 52/476 | 217/420 | 1995/906 | — | 168/0 | 2047/420 | 52/0 |
 | hatecheck-es | es | 43/520 | 229/466 | 2056/834 | — | 196/0 | 2099/466 | 43/0 |
 | hatecheck-pt | pt | 37/516 | 231/466 | 2052/765 | — | 193/0 | 2089/466 | 37/0 |
-| olidbr | pt | 896/264 | 0/229 | 198/1153 | — | 453/917 | 948/229 | 462/356 |
+| olidbr | pt | 499/229 | 0/229 | 198/1153 | — | 453/917 | 614/229 | 462/46 |
 | suite-es | es | 138/271 | 42/271 | 48/280 | 19/65 | 44/65 | 228/271 | 203/6 |
 | suite-es/generated | es | 138/271 | 42/271 | 48/280 | 19/65 | 44/65 | 228/271 | 203/6 |
 | toldbr | pt | 286/2566 | 0/2500 | 63/3069 | — | 350/2248 | 326/2500 | — |
@@ -28,10 +28,10 @@ Generado: 2026-10-06T19:49:26Z · Remuestreos bootstrap: 1000
 
 | modelo | hatecheck-en | hatecheck-es | hatecheck-pt | olidbr | suite-es | suite-es/generated | toldbr |
 |---|---|---|---|---|---|---|---|
-| laya | 0.89 [0.85–0.93]<br>R 25% · FPR 1% | 0.79 [0.75–0.84]<br>R 32% · FPR 8% | 0.78 [0.74–0.82]<br>R 37% · FPR 8% | 0.64 [0.61–0.68]<br>R 11% · FPR 4% | 0.75 [0.71–0.79]<br>R 11% · FPR 1% | 0.75 [0.71–0.79]<br>R 11% · FPR 1% | 0.72 [0.69–0.75]<br>R 16% · FPR 5% |
-| laya-app | 0.86 [0.82–0.89]<br>R 7% · FPR 0% | 0.69 [0.64–0.73]<br>R 12% · FPR 5% | 0.69 [0.65–0.73]<br>R 17% · FPR 5% | 0.69 [0.65–0.72]<br>R 13% · FPR 3% | 0.65 [0.60–0.70]<br>R 6% · FPR 1% | 0.65 [0.60–0.70]<br>R 6% · FPR 1% | 0.73 [0.69–0.75]<br>R 23% · FPR 5% |
-| detoxify | 0.83 [0.78–0.87]<br>R 66% · FPR 16% | 0.80 [0.75–0.84]<br>R 49% · FPR 13% | 0.81 [0.77–0.84]<br>R 49% · FPR 11% | 0.68 [0.64–0.72]<br>R 12% · FPR 4% | 0.75 [0.71–0.80]<br>R 9% · FPR 1% | 0.75 [0.71–0.80]<br>R 9% · FPR 1% | 0.80 [0.78–0.83]<br>R 7% · FPR 1% |
-| horizon-mmbert | 0.75 [0.71–0.80]<br>R 49% · FPR 14% | 0.76 [0.72–0.80]<br>R 49% · FPR 14% | 0.76 [0.71–0.80]<br>R 43% · FPR 11% | 0.73 [0.70–0.76]<br>R 12% · FPR 1% | 0.75 [0.71–0.79]<br>R 24% · FPR 5% | 0.75 [0.71–0.79]<br>R 24% · FPR 5% | 0.80 [0.78–0.83]<br>R 17% · FPR 1% |
+| laya | 0.89 [0.85–0.93]<br>R 25% · FPR 1% | 0.79 [0.75–0.84]<br>R 32% · FPR 8% | 0.78 [0.74–0.82]<br>R 37% · FPR 8% | 0.67 [0.63–0.71]<br>R 11% · FPR 4% | 0.75 [0.71–0.79]<br>R 11% · FPR 1% | 0.75 [0.71–0.79]<br>R 11% · FPR 1% | 0.72 [0.69–0.75]<br>R 16% · FPR 5% |
+| laya-app | 0.86 [0.82–0.89]<br>R 7% · FPR 0% | 0.69 [0.64–0.73]<br>R 12% · FPR 5% | 0.69 [0.65–0.73]<br>R 17% · FPR 5% | 0.72 [0.68–0.76]<br>R 15% · FPR 3% | 0.65 [0.60–0.70]<br>R 6% · FPR 1% | 0.65 [0.60–0.70]<br>R 6% · FPR 1% | 0.73 [0.69–0.75]<br>R 23% · FPR 5% |
+| detoxify | 0.83 [0.78–0.87]<br>R 66% · FPR 16% | 0.80 [0.75–0.84]<br>R 49% · FPR 13% | 0.81 [0.77–0.84]<br>R 49% · FPR 11% | 0.69 [0.65–0.73]<br>R 11% · FPR 4% | 0.75 [0.71–0.80]<br>R 9% · FPR 1% | 0.75 [0.71–0.80]<br>R 9% · FPR 1% | 0.80 [0.78–0.83]<br>R 7% · FPR 1% |
+| horizon-mmbert | 0.75 [0.71–0.80]<br>R 49% · FPR 14% | 0.76 [0.72–0.80]<br>R 49% · FPR 14% | 0.76 [0.71–0.80]<br>R 43% · FPR 11% | 0.76 [0.73–0.80]<br>R 14% · FPR 1% | 0.75 [0.71–0.79]<br>R 24% · FPR 5% | 0.75 [0.71–0.79]<br>R 24% · FPR 5% | 0.80 [0.78–0.83]<br>R 17% · FPR 1% |
 
 ## Diferencia de AUROC contra el mejor de cada fuente (`flag`, bootstrap pareado)
 
@@ -48,9 +48,9 @@ Si el intervalo incluye 0, no hay evidencia de que el mejor sea mejor de verdad.
 | hatecheck-pt | detoxify | laya | -0.03 [-0.06 – 0.01] |
 | hatecheck-pt | detoxify | laya-app | -0.11 [-0.16 – -0.07] |
 | hatecheck-pt | detoxify | horizon-mmbert | -0.05 [-0.08 – -0.02] |
-| olidbr | horizon-mmbert | laya | -0.09 [-0.12 – -0.05] |
+| olidbr | horizon-mmbert | laya | -0.10 [-0.14 – -0.05] |
 | olidbr | horizon-mmbert | laya-app | -0.04 [-0.08 – -0.01] |
-| olidbr | horizon-mmbert | detoxify | -0.05 [-0.08 – -0.01] |
+| olidbr | horizon-mmbert | detoxify | -0.07 [-0.10 – -0.04] |
 | suite-es | detoxify | laya | -0.00 [-0.05 – 0.04] |
 | suite-es | detoxify | laya-app | -0.11 [-0.15 – -0.06] |
 | suite-es | detoxify | horizon-mmbert | -0.00 [-0.03 – 0.03] |
@@ -94,10 +94,10 @@ Si el intervalo incluye 0, no hay evidencia de que el mejor sea mejor de verdad.
 
 | modelo | insult | threat | identity_hate | sexual_harassment | profanity | flag | targets_player |
 |---|---|---|---|---|---|---|---|
-| laya | 0.67 [0.63–0.70] | pocos datos (0+/229−) | 0.62 [0.58–0.66] | — | 0.56 [0.53–0.59] | 0.64 [0.61–0.68] | 0.57 [0.53–0.61] |
-| laya-app | n/a | n/a | n/a | — | n/a | 0.69 [0.65–0.72] | n/a |
-| detoxify | 0.70 [0.66–0.73] | pocos datos (0+/229−) | 0.72 [0.68–0.75] | — | 0.71 [0.68–0.74] | 0.68 [0.64–0.72] | n/a |
-| horizon-mmbert | 0.74 [0.71–0.77] | pocos datos (0+/229−) | 0.69 [0.65–0.73] | — | 0.76 [0.73–0.79] | 0.73 [0.70–0.76] | n/a |
+| laya | 0.71 [0.67–0.74] | pocos datos (0+/229−) | 0.62 [0.58–0.66] | — | 0.56 [0.53–0.59] | 0.67 [0.63–0.71] | 0.68 [0.59–0.75] |
+| laya-app | n/a | n/a | n/a | — | n/a | 0.72 [0.68–0.76] | n/a |
+| detoxify | 0.74 [0.70–0.78] | pocos datos (0+/229−) | 0.72 [0.68–0.75] | — | 0.71 [0.68–0.74] | 0.69 [0.65–0.73] | n/a |
+| horizon-mmbert | 0.80 [0.77–0.83] | pocos datos (0+/229−) | 0.69 [0.65–0.73] | — | 0.76 [0.73–0.79] | 0.76 [0.73–0.80] | n/a |
 
 ### suite-es (es)
 
@@ -128,7 +128,7 @@ Si el intervalo incluye 0, no hay evidencia de que el mejor sea mejor de verdad.
 
 ## Por funcionalidad (aciertos con el umbral de operación)
 
-En HateCheck se mide `identity_hate`, que es lo que HateCheck evalúa; en la suite propia, `flag`.
+En HateCheck se mide `identity_hate`, que es lo que HateCheck evalúa; en la suite propia, `flag`, salvo `sexual_harassment`, que se mide con su propia etiqueta.
 
 ### hatecheck-en
 
@@ -252,6 +252,7 @@ En HateCheck se mide `identity_hate`, que es lo que HateCheck evalúa; en la sui
 | quoting_reporting_casino | 9 | 100% | 100% | 100% | 100% |
 | sarcasm | 25 | 96% | 96% | 100% | 100% |
 | self_deprecation | 8 | 100% | 100% | 100% | 100% |
+| sexual_harassment | 19 | 68% | n/a | 32% | 42% |
 | threat | 31 | 23% | 0% | 3% | 13% |
 | threat_doxxing | 11 | 0% | 9% | 0% | 9% |
 
@@ -274,22 +275,22 @@ En HateCheck se mide `identity_hate`, que es lo que HateCheck evalúa; en la sui
 
 ## Latencia
 
-| modelo | dispositivo | idioma | p50 ms | p95 ms | mensajes/s en lotes |
-|---|---|---|---|---|---|
-| laya | cpu | es | 404 | 527 | 3 |
-| laya-app | cpu | es | 124 | 159 | 9 |
-| detoxify | cpu | es | 18 | 28 | 94 |
-| horizon-mmbert | cpu | es | 28 | 42 | 77 |
-| laya | cuda | es | 50 | 65 | 3 |
-| laya-app | cuda | es | 38 | 51 | 38 |
-| detoxify | cuda | es | 9 | 14 | 383 |
-| horizon-mmbert | cuda | es | 18 | 21 | 279 |
+| modelo | dispositivo | idioma | lote | p50 ms | p95 ms | mensajes/s en lotes |
+|---|---|---|---|---|---|---|
+| laya | cpu | es | 8 | 380 | 474 | 2 |
+| laya-app | cpu | es | 8 | 132 | 154 | 9 |
+| detoxify | cpu | es | 8 | 18 | 24 | 93 |
+| horizon-mmbert | cpu | es | 8 | 24 | 31 | 72 |
+| laya | cuda | es | 8 | 50 | 60 | 17 |
+| laya-app | cuda | es | 8 | 37 | 50 | 54 |
+| detoxify | cuda | es | 8 | 9 | 14 | 306 |
+| horizon-mmbert | cuda | es | 8 | 19 | 24 | 214 |
 
 ## Modelos
 
-- **laya** (`qa5d7896f-laya0.3.22-default-multilingual`, Apache-2.0): Laya sin ajustar (zero-shot) con seis preguntas redactadas para este benchmark y sin pulir: el resultado depende tanto de la redacción como del modelo. El inglés que Laya identifica va al checkpoint inglés (ModernBERT-large) y el resto al multilingüe (mmBERT-base). Hace una fila de encoder por pregunta: seis por mensaje. Umbrales de operación: insult=0.878, threat=0.576, identity_hate=0.953, sexual_harassment=0.256, profanity=0.997, flag=0.949, targets_player=0.974.
-- **laya-app** (`qcabfaa77-laya0.3.22-default-multilingual`, Apache-2.0): La pregunta `insult` que usa hoy la app (insultos, slurs y amenazas en una sola pregunta) como flag. Es la línea de base: lo que ya tenemos. Umbrales de operación: flag=0.864.
-- **detoxify** (`multilingual-0.5.2`, Apache-2.0): XLM-R entrenado con Jigsaw 2020. Fuera de `toxicity`, sus categorías se aprendieron de etiquetas en inglés traducidas, así que en español y portugués son débiles. `sexual_explicit` detecta contenido sexual, no acoso. Umbrales de operación: insult=0.581, threat=0.0193, identity_hate=0.683, sexual_harassment=0.0173, profanity=0.312, flag=0.645.
+- **laya** (`qa5d7896f-laya0.3.22-r7b928d828b7b-default-multilingual`, Apache-2.0): Laya sin ajustar (zero-shot) con seis preguntas redactadas para este benchmark y sin pulir: el resultado depende tanto de la redacción como del modelo. El inglés que Laya identifica va al checkpoint inglés (ModernBERT-large) y el resto al multilingüe (mmBERT-base). Hace una fila de encoder por pregunta: seis por mensaje. Laya avisa que un checkpoint trae temperaturas inválidas para preguntas de 11+ opciones; no afecta a este benchmark (2–3 opciones). Umbrales de operación: insult=0.877, threat=0.576, identity_hate=0.953, sexual_harassment=0.256, profanity=0.997, flag=0.949, targets_player=0.99.
+- **laya-app** (`qcabfaa77-laya0.3.22-r7b928d828b7b-default-multilingual`, Apache-2.0): La pregunta `insult` que usa hoy la app (insultos, slurs y amenazas en una sola pregunta) como flag. Es la línea de base: lo que ya tenemos. Laya avisa que un checkpoint trae temperaturas inválidas para preguntas de 11+ opciones; no afecta a este benchmark (2–3 opciones). Umbrales de operación: flag=0.864.
+- **detoxify** (`multilingual-0.5.2`, Apache-2.0): XLM-R entrenado con Jigsaw 2020. Fuera de `toxicity`, sus categorías se aprendieron de etiquetas en inglés traducidas, así que en español y portugués son débiles. `sexual_explicit` detecta contenido sexual, no acoso. El checkpoint es un pickle de una release de GitHub (se carga con weights_only=False) y el tokenizer de xlm-roberta-base se baja sin revisión fija. Umbrales de operación: insult=0.59, threat=0.0193, identity_hate=0.683, sexual_harassment=0.0173, profanity=0.312, flag=0.645.
 - **horizon-mmbert** (`dbf12a991527`, Apache-2.0): mmBERT-base ajustado con Civil Comments traducido por un LLM. Lo publicó una cuenta creada en septiembre de 2026, sin trayectoria, y no sabemos con qué datos exactos se entrenó: si vio ToLD-Br, OLID-BR o HateCheck, sus números en esas fuentes están inflados. Se carga solo en safetensors y sin código remoto. Umbrales de operación: insult=0.507, threat=0.116, identity_hate=0.558, sexual_harassment=0.0693, profanity=0.439, flag=0.576.
 
 ## Fuentes
