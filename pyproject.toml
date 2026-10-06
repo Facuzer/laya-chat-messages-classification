@@ -16,9 +16,16 @@ dev = [
     "httpx2>=2.13.1",
     "pytest>=8",
 ]
+# Benchmark of moderation models (bench/, scripts/bench.py).
+bench = [
+    "datasets>=4.0",
+    "detoxify>=0.5.2",
+    "scikit-learn>=1.9",
+]
 
 [tool.uv]
 package = false
+default-groups = ["dev", "bench"]
 
 # PyPI only ships CPU builds of torch for Windows, so torch comes from the PyTorch CUDA index.
 [tool.uv.sources]
@@ -33,4 +40,4 @@ explicit = true
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-m 'not slow'"
-markers = ["slow: loads the real Laya checkpoint; run with `pytest -m slow`"]
+markers = ["slow: loads real models or downloads datasets; run with `pytest -m slow`"]
