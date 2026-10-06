@@ -10,6 +10,12 @@ from __future__ import annotations
 from bench.taxonomy import Example
 
 HATECHECK_REPOS = {"es": "Paul/hatecheck-spanish", "pt": "Paul/hatecheck-portuguese", "en": "Paul/hatecheck"}
+# The commits the preliminary scoreboard read (from the local HF cache on 2026-10-06).
+HATECHECK_REVISIONS = {
+    "es": "a7ea759535bb9fad6361cca151cf94a46e88edf3",
+    "pt": "323bdf67e0fbd3d7f8086fad0971b5bd5a62524b",
+    "en": "9d2ac89df04254e5c427bcc8d61b6d6c83a1f59b",
+}
 HATEFUL = (
     "derog_neg_emote_h", "derog_neg_attrib_h", "derog_dehum_h", "derog_impl_h", "threat_dir_h", "threat_norm_h",
     "slur_h", "profanity_h", "ref_subs_clause_h", "ref_subs_sent_h", "negate_pos_h", "phrase_question_h",
@@ -73,5 +79,5 @@ def hatecheck_example(row: dict, lang: str) -> Example | None:
 def load_hatecheck(lang: str) -> list[Example]:
     from datasets import load_dataset
 
-    rows = load_dataset(HATECHECK_REPOS[lang], split="test")
+    rows = load_dataset(HATECHECK_REPOS[lang], split="test", revision=HATECHECK_REVISIONS[lang])
     return [e for e in (hatecheck_example(r, lang) for r in rows) if e is not None]

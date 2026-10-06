@@ -1,3 +1,5 @@
+import re
+
 import pytest
 
 from bench.sources.hatecheck import ALL_FUNCTIONALITIES, hatecheck_example
@@ -72,3 +74,19 @@ def test_unknown_functionality_or_label_raises_naming_it():
 @pytest.mark.parametrize("functionality", ALL_FUNCTIONALITIES)
 def test_every_known_functionality_maps(functionality):
     assert hatecheck_example(row(functionality), "en") is not None
+
+
+def test_every_hatecheck_dataset_loads_at_its_pinned_revision(monkeypatch):
+    import datasets
+
+    import bench.sources.hatecheck as hatecheck
+
+    seen = []
+    monkeypatch.setattr(datasets, "load_dataset", lambda repo, **kwargs: seen.append((repo, kwargs)) or [])
+
+    for lang in ("es", "pt", "en"):
+        hatecheck.load_hatecheck(lang)
+
+    assert [repo for repo, _ in seen] == ["Paul/hatecheck-spanish", "Paul/hatecheck-portuguese", "Paul/hatecheck"]
+    assert [kwargs["revision"] for _, kwargs in seen] == [hatecheck.HATECHECK_REVISIONS[lang] for lang in ("es", "pt", "en")]
+    assert all(re.fullmatch(r"[0-9a-f]{40}", kwargs["revision"]) for _, kwargs in seen)

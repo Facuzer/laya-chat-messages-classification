@@ -1,3 +1,5 @@
+import re
+
 import pytest
 
 from bench.sources.portuguese import olidbr_example, toldbr_example
@@ -104,3 +106,19 @@ def test_olid_untargeted_identity_attack_is_still_flagged():
 def test_olid_unexpected_values_raise(field, value):
     with pytest.raises(ValueError, match=value):
         olid(**{field: value})
+
+
+def test_toldbr_and_olidbr_load_at_their_pinned_revisions(monkeypatch):
+    import datasets
+
+    import bench.sources.portuguese as portuguese
+
+    seen = []
+    monkeypatch.setattr(datasets, "load_dataset", lambda repo, **kwargs: seen.append((repo, kwargs)) or [])
+
+    portuguese.load_toldbr()
+    portuguese.load_olidbr()
+
+    assert seen == [("mteb/told-br", {"split": "train", "revision": portuguese.TOLDBR_REVISION}),
+                    ("dougtrajano/olid-br", {"split": "test", "revision": portuguese.OLIDBR_REVISION})]
+    assert all(re.fullmatch(r"[0-9a-f]{40}", kwargs["revision"]) for _, kwargs in seen)

@@ -11,6 +11,9 @@ from bench.taxonomy import Example
 
 TOLDBR_REPO = "mteb/told-br"
 OLIDBR_REPO = "dougtrajano/olid-br"
+# The commits the preliminary scoreboard read (from the local HF cache on 2026-10-06).
+TOLDBR_REVISION = "36b92223b1328b4f524705053a433b81489d501b"
+OLIDBR_REVISION = "84b0d7dd4309be677a47c535632a9398ff1897bd"
 TOLD_COLUMNS = ("homophobia", "obscene", "insult", "racism", "misogyny", "xenophobia")
 TOLD_IDENTITY = ("homophobia", "racism", "misogyny", "xenophobia")
 OLID_IDENTITY = ("racism", "sexism", "lgbtqphobia", "xenophobia", "religious_intolerance")
@@ -83,10 +86,10 @@ def olidbr_example(row: dict) -> Example:
 def load_toldbr() -> list[Example]:
     from datasets import load_dataset
 
-    return [toldbr_example(row, i) for i, row in enumerate(load_dataset(TOLDBR_REPO, split="train"))]
+    return [toldbr_example(row, i) for i, row in enumerate(load_dataset(TOLDBR_REPO, split="train", revision=TOLDBR_REVISION))]
 
 
 def load_olidbr() -> list[Example]:
     from datasets import load_dataset
 
-    return [olidbr_example(row) for row in load_dataset(OLIDBR_REPO, split="test")]
+    return [olidbr_example(row) for row in load_dataset(OLIDBR_REPO, split="test", revision=OLIDBR_REVISION)]
