@@ -27,7 +27,7 @@ def test_parses_a_reviewed_row():
 
 
 def test_excel_semicolons_with_bom_parse_like_plain_commas():
-    assert parse_suite("﻿" + csv_text(ROW), "s") == parse_suite(csv_text(ROW, delimiter=","), "s")
+    assert parse_suite("\ufeff" + csv_text(ROW), "s") == parse_suite(csv_text(ROW, delimiter=","), "s")
 
 
 def test_empty_rows_excel_leaves_at_the_end_are_ignored():

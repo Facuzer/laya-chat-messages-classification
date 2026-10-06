@@ -33,7 +33,7 @@ def _cell(value: str, line: int, column: str) -> bool | None:
 
 def parse_suite(text: str, source: str) -> list[tuple[Example, bool]]:
     """(example, reviewed) for every non-empty row. Raises SuiteError naming the line of the first problem."""
-    text = text.lstrip("﻿")
+    text = text.lstrip("\ufeff")
     header = text.split("\n", 1)[0]
     delimiter = ";" if header.count(";") > header.count(",") else ","
     reader = csv.DictReader(io.StringIO(text), delimiter=delimiter)
