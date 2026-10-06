@@ -75,6 +75,31 @@ def test_olid_health_is_ambiguous_for_identity_hate():
     assert gold(olid(health=True), "identity_hate") is None
 
 
+def test_olid_insult_column_false_leaves_insult_unknown():
+    # A body, lifestyle, ideology or health attack is an insult to us even when OLID's insult column is False.
+    e = olid(physical_aspects=True)
+
+    assert gold(e, "insult") is None and gold(e, FLAG) is None and e.target == "player"
+
+
+def test_olid_attack_on_an_organization_or_thing_has_no_insult_or_target():
+    e = olid(targeted_type="OTH", insult=True)
+
+    assert gold(e, "insult") is None and e.target is None
+
+
+def test_olid_untargeted_attack_has_no_insult_or_target():
+    e = olid(is_targeted="UNT", targeted_type=None, insult=True)
+
+    assert gold(e, "insult") is None and e.target is None and gold(e, FLAG) is None
+
+
+def test_olid_untargeted_identity_attack_is_still_flagged():
+    e = olid(is_targeted="UNT", targeted_type=None, insult=True, racism=True)
+
+    assert gold(e, "identity_hate") is True and gold(e, FLAG) is True and gold(e, TARGETS_PLAYER) is None
+
+
 @pytest.mark.parametrize("field,value", [("is_offensive", "MAYBE"), ("is_targeted", "X"), ("targeted_type", "ORG")])
 def test_olid_unexpected_values_raise(field, value):
     with pytest.raises(ValueError, match=value):

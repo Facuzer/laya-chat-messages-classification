@@ -62,16 +62,21 @@ def olidbr_example(row: dict) -> Example:
         if targeted == "UNT" and not attack_categories:
             labels = {"insult": False, "threat": False, "identity_hate": False,
                       "profanity": True if row["profanity_obscene"] else None}
+            target = "none"
         else:
             identity = any(row[c] for c in OLID_IDENTITY)
+            # Ours is an insult aimed at a person: OLID's covers groups (GRP) and things (OTH), and an
+            # untargeted insult contradicts ours. IND is often a public figure. A False column does not
+            # rule an insult out: body, lifestyle, ideology and health attacks are insults to us.
+            not_personal = targeted == "UNT" or kind in ("GRP", "OTH")
             labels = {
-                # OLID's insult includes groups; ours is aimed at a person. IND is often a public figure.
-                "insult": None if kind == "GRP" else bool(row["insult"]),
+                "insult": None if not_personal else (True if row["insult"] else None),
                 # `health` mixes disability (protected) with other health insults.
                 "identity_hate": True if identity else (None if row["health"] else False),
                 "profanity": bool(row["profanity_obscene"]),
             }
-        target = "none" if targeted == "UNT" else {"IND": "player", "GRP": "group"}.get(kind)
+            # An untargeted attack says nothing about who it hits; OTH is an organization or a thing.
+            target = None if targeted == "UNT" else {"IND": "player", "GRP": "group"}.get(kind)
     return Example(id=f"olidbr:{row['id']}", source="olidbr", lang="pt", text=row["text"].strip(), labels=labels, target=target)
 
 
