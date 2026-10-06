@@ -139,3 +139,20 @@ def test_flag_is_the_max_of_insult_threat_and_identity_hate_only_when_all_three_
 
 def test_map_labels_renames_only_labels_that_are_present():
     assert map_labels({"insult": 0.5, "toxicity": 0.9}, {"insult": "insult", "threat": "threat"}) == {"insult": 0.5}
+
+
+def test_a_line_cut_inside_a_non_ascii_id_does_not_crash_loading(tmp_path):
+    cache, contestant = PredictionCache(tmp_path), FakeContestant()
+    run([contestant], [ex("señal_1", text="hola")], cache, **QUIET)
+    path = next(tmp_path.rglob("*.jsonl"))
+    good = path.read_bytes()
+    path.write_bytes(good + b'{"id": "s:se' + "ñ".encode("utf-8")[:1])
+
+    assert set(cache.load(contestant, "s")) == {"s:señal_1"}
+
+
+def test_ids_with_unicode_line_separators_survive_the_cache(tmp_path):
+    cache, contestant = PredictionCache(tmp_path), FakeContestant()
+    run([contestant], [ex("a b")], cache, **QUIET)
+
+    assert set(cache.load(contestant, "s")) == {"s:a b"}

@@ -30,7 +30,7 @@ class PredictionCache:
         if not path.exists():
             return {}
         cached = {}
-        for line in path.read_text(encoding="utf-8").splitlines():
+        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
             try:
                 row = json.loads(line)
             except json.JSONDecodeError:
@@ -46,8 +46,9 @@ class PredictionCache:
             with path.open("rb") as f:
                 f.seek(-1, 2)
                 needs_newline = f.read(1) != b"\n"
+        # Build the entire batch's text first, so serialization errors fail before anything is written.
+        payload = "".join(json.dumps({"id": example_id, "text_sha": sha, "raw": raw}) + "\n" for example_id, sha, raw in rows)
         with path.open("a", encoding="utf-8", newline="\n") as f:
             if needs_newline:
                 f.write("\n")
-            for example_id, sha, raw in rows:
-                f.write(json.dumps({"id": example_id, "text_sha": sha, "raw": raw}, ensure_ascii=False) + "\n")
+            f.write(payload)
