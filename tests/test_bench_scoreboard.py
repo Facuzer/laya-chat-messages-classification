@@ -112,8 +112,10 @@ def test_functionality_accuracy_uses_the_operating_threshold():
 
 
 def test_routing_reports_the_share_sent_to_english():
-    examples = [ex("e1", True), ex("e2", False)]
-    raw = {"perfect": {"suite-es:e1": {"p": 0.9, "routed_english": 1.0}, "suite-es:e2": {"p": 0.1, "routed_english": 0.0}}}
+    examples = [ex("e1", True), ex("e2", False), ex("c1", True)]
+    raw = {"perfect": {"suite-es:e1": {"p": 0.9, "routed_english": 1.0},
+                       "suite-es:e2": {"p": 0.1, "routed_english": 0.0},
+                       "suite-es:c1": {"p": 0.9, "routed_english": 1.0}}}
 
     b = build_scoreboard(examples, [Perfect()], raw, n_boot=5, split=split)
 

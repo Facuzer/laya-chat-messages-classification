@@ -122,12 +122,14 @@ def functionalities(examples, scores_by_contestant, thr, split=split_of) -> list
             for (n, s, f), h in sorted(hits.items())]
 
 
-def routing(examples, raw) -> list[dict]:
+def routing(examples, raw, split=split_of) -> list[dict]:
     """For Laya contestants: the share of each source's messages its router sent to the English checkpoint."""
     rows = []
     for name, predictions in raw.items():
         by_source = defaultdict(list)
         for e in examples:
+            if split(e) != "eval":
+                continue
             r = predictions.get(e.id)
             if r is not None and "routed_english" in r:
                 by_source[e.source].append(r["routed_english"])
@@ -144,5 +146,5 @@ def build_scoreboard(examples, contestants, raw, n_boot: int = 1000, seed: int =
         "slices": slices(examples, scores, thr, n_boot, seed, split),
         "comparisons": comparisons(examples, scores, n_boot, seed, split),
         "functionalities": functionalities(examples, scores, thr, split),
-        "routing": routing(examples, raw),
+        "routing": routing(examples, raw, split),
     }
