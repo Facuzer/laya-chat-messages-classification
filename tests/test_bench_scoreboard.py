@@ -103,12 +103,21 @@ def test_comparisons_measure_each_contestant_against_the_best():
     assert c["hi"] < 0
 
 
+def test_comparisons_skip_sources_with_too_few_examples_of_a_class():
+    # suite-es has 40/40 eval `flag` examples; each author slice has 20/20, under MIN_PER_CLASS.
+    sources = {c["source"] for c in board()["comparisons"]}
+
+    assert sources == {"suite-es"}
+
+
 def test_functionality_accuracy_uses_the_operating_threshold():
     rows = {(r["contestant"], r["functionality"]): r for r in board()["functionalities"]}
 
     assert rows[("perfect", "insult_direct")] == {"contestant": "perfect", "source": "suite-es",
                                                   "functionality": "insult_direct", "n": 80, "accuracy": 1.0}
-    assert functionality_label("hatecheck-pt") == "identity_hate" and functionality_label("suite-es") == FLAG
+    assert functionality_label("hatecheck-pt", "slur_h") == "identity_hate"
+    assert functionality_label("suite-es", "insult_direct") == FLAG
+    assert functionality_label("suite-es", "sexual_harassment") == "sexual_harassment"
 
 
 def test_routing_reports_the_share_sent_to_english():

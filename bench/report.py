@@ -95,7 +95,8 @@ def render(board: dict) -> str:
         by_functionality[(r["source"], r["functionality"])][r["contestant"]] = r
     if by_functionality:
         lines += ["## Por funcionalidad (aciertos con el umbral de operación)", "",
-                  "En HateCheck se mide `identity_hate`, que es lo que HateCheck evalúa; en la suite propia, `flag`.", ""]
+                  "En HateCheck se mide `identity_hate`, que es lo que HateCheck evalúa; en la suite propia, `flag`, "
+                  "salvo `sexual_harassment`, que se mide con su propia etiqueta.", ""]
         for source in sorted({s for s, _ in by_functionality}):
             table = [
                 [f, str(max(r["n"] for r in per.values())), *(_pct(per[n]["accuracy"]) if n in per else "n/a" for n in names)]

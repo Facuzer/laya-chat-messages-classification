@@ -25,9 +25,12 @@ def slice_keys(example) -> list[str]:
     return keys
 
 
-def functionality_label(source: str) -> str:
-    # HateCheck measures hate speech; the suite's functionalities are about moderation as a whole.
-    return "identity_hate" if source.startswith("hatecheck") else FLAG
+def functionality_label(source: str, functionality: str) -> str:
+    # HateCheck measures hate speech; the suite's functionalities are about moderation as a whole,
+    # except sexual harassment, which `flag` leaves out and is scored on its own label.
+    if source.startswith("hatecheck"):
+        return "identity_hate"
+    return "sexual_harassment" if functionality == "sexual_harassment" else FLAG
 
 
 def _pairs(examples, scores: dict, label: str):
@@ -84,7 +87,10 @@ def slices(examples, scores_by_contestant, thr, n_boot=1000, seed=0, split=split
 
 
 def comparisons(examples, scores_by_contestant, n_boot=1000, seed=0, split=split_of) -> list[dict]:
-    """Per source, `flag` AUROC of each contestant minus the best one's, on the items all of them scored."""
+    """Per source, `flag` AUROC of each contestant minus the best one's, on the items all of them scored.
+
+    Sources with fewer than MIN_PER_CLASS eval examples of either class are left out, like their "pocos datos" cells.
+    """
     by_source = defaultdict(list)
     for e in examples:
         if split(e) == "eval" and gold(e, FLAG) is not None:
@@ -92,8 +98,10 @@ def comparisons(examples, scores_by_contestant, n_boot=1000, seed=0, split=split
                 by_source[key].append(e)
     rows = []
     for key, items in sorted(by_source.items()):
-        names = [n for n, s in scores_by_contestant.items() if all(FLAG in s.get(e.id, {}) for e in items)]
         golds = [gold(e, FLAG) for e in items]
+        if min(golds.count(True), golds.count(False)) < MIN_PER_CLASS:
+            continue
+        names = [n for n, s in scores_by_contestant.items() if all(FLAG in s.get(e.id, {}) for e in items)]
         values = {n: [scores_by_contestant[n][e.id][FLAG] for e in items] for n in names}
         aurocs = {n: auroc(golds, values[n]) for n in names}
         names = [n for n in names if aurocs[n] is not None]
@@ -114,7 +122,7 @@ def functionalities(examples, scores_by_contestant, thr, split=split_of) -> list
     evaluated = [e for e in examples if split(e) == "eval" and e.functionality]
     for name, scores in scores_by_contestant.items():
         for e in evaluated:
-            label = functionality_label(e.source)
+            label = functionality_label(e.source, e.functionality)
             threshold, value, expected = thr[name].get(label), scores.get(e.id, {}).get(label), gold(e, label)
             if threshold is not None and value is not None and expected is not None:
                 hits[(name, e.source, e.functionality)].append((value > threshold) == expected)
