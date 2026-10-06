@@ -47,3 +47,37 @@ La parte más importante del examen es la **suite propia** (`suites/es_casino.cs
 6. **Segunda opinión:** que otra persona revise una copia de las mismas ~150 filas sin mirar la primera revisión, y compará las dos:
    `uv run python scripts/bench.py agreement suites/es_casino.csv copia.csv`
    Si el kappa de una categoría da menos de 0.6, el criterio no está claro: hablenlo y ajusten esta guía.
+
+## Cómo correr
+
+```bash
+uv sync
+uv run python scripts/bench.py sources                     # cuántos ejemplos hay por fuente y categoría
+uv run python scripts/bench.py run                         # corre los modelos y escribe bench_out/scoreboard.md
+uv run python scripts/bench.py run --include-unreviewed    # vista PRELIMINAR con filas sin revisar
+uv run python scripts/bench.py latency --device cpu        # latencia en CPU (y --device cuda)
+```
+
+Todos los modelos son de código abierto (Apache-2.0) y corren en nuestras máquinas: ningún mensaje sale a una API externa. Un modelo nuevo entra al benchmark solo si cumple lo mismo; el test `test_every_contestant_is_open_source` lo controla.
+
+Las predicciones quedan guardadas en `bench_out/predictions/`. Volver a correr solo evalúa lo nuevo: si revisaste o corregiste filas de la suite, solo se vuelven a evaluar esas. Con `--bootstrap 200` el cálculo de intervalos es más rápido.
+
+## Cómo leer el scoreboard
+
+- **AUROC [IC 95%]**: probabilidad de que el modelo puntúe más alto un mensaje dañino que uno sano. 0.5 es tirar una moneda y 1 es perfecto. El intervalo muestra cuánto puede variar por azar.
+- **R · FPR**: cada modelo tiene un umbral, elegido para que marque por error al 5% de los mensajes sanos de la partición de calibración. R es qué parte de los dañinos detecta con ese umbral y FPR qué parte de los sanos marca en cada fuente. Si el FPR de una fuente se aleja mucho del 5%, ese umbral no se traslada bien a ese tipo de texto.
+- **Diferencia contra el mejor**: si el intervalo incluye 0, no hay evidencia de que el mejor sea mejor de verdad.
+- **pocos datos**: menos de 30 ejemplos de alguna clase; no sacar conclusiones.
+- **suite-es/human vs. suite-es/generated**: si un modelo anda mucho mejor con las frases generadas, probablemente se parezca más al generador que al chat real.
+- **Laya** se evalúa sin ajuste (zero-shot) y con preguntas sin pulir. La versión ajustada compite en el paso 2, junto con nuestros propios modelos.
+
+## Fuentes y licencias
+
+| Fuente | Idioma | Licencia |
+|---|---|---|
+| suite-es | es | propia |
+| HateCheck multilingüe (es, pt) y HateCheck (en) | es/pt/en | CC BY 4.0 |
+| ToLD-Br | pt | CC BY-SA 4.0 |
+| OLID-BR | pt | CC BY 4.0 |
+
+Quedaron afuera por licencia o acceso: OffendES (pide aceptar términos y su licencia se contradice), HatEval y HateBR (no comerciales) y el modelo de odio de pysentimiento (entrenado con HatEval).

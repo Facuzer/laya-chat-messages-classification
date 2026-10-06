@@ -128,6 +128,20 @@ A preview run on the generated set, using its *suggested* labels without human r
 
 The step-by-step guide, including the labeling policy and how to read the report, is in [`docs/finetuning.md`](docs/finetuning.md) (in Spanish).
 
+## Moderation benchmark
+
+Before choosing a moderation model, `bench/` scores the candidates on one shared exam: Spanish, Portuguese and English messages labeled for insult, threat, identity hate, sexual harassment, profanity and target.
+- **Sources:** HateCheck (es/pt/en), ToLD-Br and OLID-BR, plus a Rioplatense casino suite the team reviews (`suites/es_casino.csv`).
+- **Contestants:** Laya zero-shot, the app's current Laya question, Detoxify multilingual and an mmBERT toxicity model. All are open-source and run locally; no paid or hosted APIs.
+
+```bash
+uv run python scripts/bench.py sources       # what the exam contains
+uv run python scripts/bench.py run           # writes bench_out/scoreboard.md
+uv run python scripts/bench.py latency --device cpu
+```
+
+Every model gets one operating threshold, set on a calibration split at 5% false positives. The report shows per-source AUROC with bootstrap confidence intervals, paired comparisons against the best model, and per-functionality accuracy. The labeling policy, the review guide and how to read the report are in [`docs/benchmark.md`](docs/benchmark.md) (in Spanish).
+
 ## Project layout
 
 ```
@@ -141,6 +155,8 @@ trainer/
   finetune.py      the training / calibration / evaluation loop
   metrics.py       F1, calibration error, the activation rule
   targets.py       labels → training targets
+bench/             moderation benchmark: sources, contestants, metrics, report
+suites/            the hand-written Spanish suite reviewers edit
 scripts/           try_laya · import_examples · finetune · activate_model
 static/            chat (index.html) and review page (training.html), no build step
 datasets/          generated examples to review
