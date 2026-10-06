@@ -38,3 +38,15 @@ def test_real_laya_answers_every_taxonomy_question():
     scores = [effective_scores(contestant, r) for r in contestant.predict(["sos un pelotudo", "buena mano, gg"], "es")]
 
     assert all(0.0 <= s["flag"] <= 1.0 and 0.0 <= s["targets_player"] <= 1.0 for s in scores)
+
+
+@pytest.mark.parametrize("name", ["detoxify", "horizon-mmbert"])
+def test_real_classifiers_score_a_spanish_insult_above_a_greeting(name):
+    from bench.contestants import build_contestants
+    from bench.contestants.base import effective_scores
+
+    [contestant] = build_contestants([name])
+    insult, greeting = (effective_scores(contestant, r)["flag"]
+                        for r in contestant.predict(["sos un pelotudo de mierda", "hola, suerte a todos"], "es"))
+
+    assert insult > greeting
