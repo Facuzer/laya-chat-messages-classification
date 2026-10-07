@@ -252,3 +252,18 @@ def test_training_page_is_served(client):
 
     assert response.status_code == 200
     assert response.headers["content-type"].startswith("text/html")
+
+
+def test_metrics_endpoint_tolerates_a_classifier_without_a_router(client):
+    response = client.get("/api/metrics")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["models"] == []
+    assert body["performance"] is None
+    assert {"uptime_s", "gpu_memory", "gpu", "host"} <= body.keys()
+
+
+def test_pages_include_the_metrics_panel(client):
+    assert 'id="metrics-body"' in client.get("/training.html").text
+    assert 'id="metrics-body"' in client.get("/").text

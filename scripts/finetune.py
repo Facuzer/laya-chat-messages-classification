@@ -60,6 +60,8 @@ def print_report(result: dict) -> None:
 
 
 def main() -> int:
+    # The report contains "→"; a redirected stdout on Windows defaults to cp1252, which can't encode it.
+    sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--epochs", type=int, default=TrainConfig.epochs)
     parser.add_argument("--no-activate", action="store_true", help="save the checkpoint without putting it in use")

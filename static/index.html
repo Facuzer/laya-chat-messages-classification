@@ -41,6 +41,11 @@
           <span class="stat-share" id="share-flagged"></span>
         </div>
       </section>
+
+      <details class="metrics">
+        <summary><span>Recursos y rendimiento</span> <span class="metrics-summary" id="metrics-summary">—</span></summary>
+        <div class="metrics-body" id="metrics-body"><p class="muted">Cargando…</p></div>
+      </details>
     </header>
 
     <main class="thread" id="thread" aria-live="polite">
@@ -56,6 +61,8 @@
     </form>
   </div>
 
+  <script src="metrics.js"></script>
   <script src="app.js"></script>
+  <script>startMetrics(document.getElementById("metrics-body"), document.getElementById("metrics-summary"));</script>
 </body>
 </html>

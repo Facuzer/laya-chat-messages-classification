@@ -12,6 +12,7 @@ from pydantic import BaseModel, StringConstraints
 from app.classifier import load_classifier
 from app.examples import DEFAULT_PATH as DEFAULT_EXAMPLES_PATH
 from app.examples import ExampleStore
+from app.metrics import collect as collect_metrics
 from app.stats import compute_stats
 from app.store import MessageStore
 
@@ -99,6 +100,10 @@ def create_app(classifier=None, store: MessageStore | None = None, examples: Exa
         c = request.app.state.classifier.classify(example["text"])
         prediction = {"p_insult": c.insult.probabilities["insult"], "flagged": c.flagged, "model": c.model}
         return {"example": example, "prediction": prediction}
+
+    @app.get("/api/metrics")
+    def metrics(request: Request) -> dict:
+        return collect_metrics(request.app.state.classifier)
 
     @app.post("/api/training/examples/{example_id}/label")
     def review_example(example_id: str, body: ReviewIn) -> dict:

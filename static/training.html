@@ -52,8 +52,8 @@
     <section class="panel" aria-labelledby="criteria-title">
       <h2 id="criteria-title">Qué cuenta como insulto</h2>
       <ul class="criteria">
-        <li><strong>Insulto:</strong> agresión dirigida a una persona. Insultos ("sos un pelotudo"), slurs y amenazas ("te voy a romper la cara").</li>
-        <li><strong>No insulto:</strong> todo lo demás. El sarcasmo ("qué genio que sos"), las puteadas sin destinatario ("qué día de mierda") y el trato amistoso ("boludo, vení") tampoco cuentan.</li>
+        <li><strong>Insulto:</strong> insultos ("sos un pelotudo"), slurs ("mogólico"), amenazas ("te voy a romper la cara") y groserías fuertes, aunque no apunten a nadie.</li>
+        <li><strong>No insulto:</strong> todo lo demás. El sarcasmo ("qué genio que sos"), las malas palabras suaves ("qué día de mierda", "carajo") y el trato amistoso ("boludo, vení") tampoco cuentan.</li>
       </ul>
     </section>
 
@@ -64,8 +64,15 @@
       <pre><code>uv run python scripts/finetune.py</code></pre>
       <p class="muted">Después reiniciá el server. Para volver al modelo original: <code>uv run python scripts/activate_model.py --base</code></p>
     </section>
+
+    <section class="panel" aria-labelledby="metrics-title">
+      <h2 id="metrics-title">Recursos y rendimiento</h2>
+      <div class="metrics-body" id="metrics-body"><p class="muted">Cargando…</p></div>
+    </section>
   </div>
 
+  <script src="metrics.js"></script>
   <script src="training.js"></script>
+  <script>startMetrics(document.getElementById("metrics-body"));</script>
 </body>
 </html>

@@ -17,8 +17,8 @@ Los 421 ejemplos de `datasets/generated_rioplatense_v1.jsonl` ya están importad
 
 ## Criterio de etiquetado
 
-- **Insulto:** agresión dirigida a una persona. Insultos ("sos un pelotudo"), slurs y amenazas ("te voy a romper la cara").
-- **No insulto:** todo lo demás. Sarcasmo ("qué genio que sos"), puteadas sin destinatario ("qué día de mierda"), trato amistoso ("boludo, vení"), negaciones ("no sos un idiota") y hablar sobre insultos ("me dijo forro y me dolió").
+- **Insulto:** insultos ("sos un pelotudo"), slurs ("mogólico"), amenazas ("te voy a romper la cara") y groserías fuertes, aunque no apunten a nadie.
+- **No insulto:** todo lo demás. Sarcasmo ("qué genio que sos"), malas palabras suaves sin destinatario ("qué día de mierda", "carajo"), trato amistoso ("boludo, vení"), negaciones ("no sos un idiota") y hablar sobre insultos ("me dijo forro y me dolió").
 
 Ser consistente importa más que la cantidad: el modelo aprende exactamente el criterio que reflejan tus etiquetas. Ante la duda, "Descartar".
 

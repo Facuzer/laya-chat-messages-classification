@@ -7,6 +7,8 @@ dependencies = [
     "fastapi>=0.115",
     # Pinned: trainer/finetune.py uses Laya's private encoding and calibration APIs.
     "laya==0.3.22",
+    "nvidia-ml-py>=12",
+    "psutil>=5.9",
     "torch>=2.14",
     "uvicorn>=0.30",
 ]

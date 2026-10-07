@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from app.checkpoints import ActiveCheckpoint, questions_match
+from app.metrics import LatencyRecorder
 
 log = logging.getLogger(__name__)
 
@@ -18,10 +19,10 @@ STATE_KEY = "message"
 QUESTIONS = {
     "insult": {
         "type": "choice",
-        "instructions": "Does `message` insult or threaten someone?",
+        "instructions": "Does `message` contain an insult, a threat or strong profanity?",
         "criteria": {
-            "insult": "insults, name-calling, slurs or threats aimed at a person",
-            "clean": "no insult or threat aimed at a person; includes sarcasm, swearing at no one and friendly banter",
+            "insult": "insults, name-calling, slurs, threats or strong profanity, whether or not aimed at a person",
+            "clean": "none of those; includes sarcasm, mild swearing (such as 'mierda' or 'carajo') and friendly banter",
         },
     },
     "sentiment": {
@@ -78,12 +79,14 @@ class LayaClassifier:
         self.checkpoint = checkpoint
         # One inference at a time: the endpoint runs in a thread pool and every request shares the model.
         self._lock = threading.Lock()
+        self.latency = LatencyRecorder()
 
     def classify(self, text: str) -> Classification:
         with self._lock:
             start = time.perf_counter()
             result = self.router.predict({STATE_KEY: text}, QUESTIONS)
             latency_ms = round((time.perf_counter() - start) * 1000)
+        self.latency.record(latency_ms)
         return to_classification(result, self.threshold, latency_ms)
 
 

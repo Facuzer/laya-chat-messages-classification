@@ -104,6 +104,15 @@ def test_classify_reports_non_negative_latency():
     assert classification.latency_ms >= 0
 
 
+def test_classify_records_each_latency_for_metrics():
+    classifier = LayaClassifier(RecordingRouter(laya_result()), threshold=0.7)
+
+    classifier.classify("hola")
+    classifier.classify("chau")
+
+    assert classifier.latency.snapshot()["total"] == 2
+
+
 @pytest.mark.parametrize("key", ["insult", "sentiment"])
 def test_every_question_refers_to_the_state_key_classify_sends(key):
     assert "`message`" in QUESTIONS[key]["instructions"]
